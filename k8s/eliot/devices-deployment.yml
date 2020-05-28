@@ -1,0 +1,83 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: eliot-weather
+  namespace: eliot
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: eliot-weather
+  template:
+    metadata:
+      name: eliot-weather
+      labels:
+        app: eliot-weather
+    spec:
+      containers:
+      - name: eliot-weather
+        image: alliasd/eliot
+        args: ["weather.js","$(ELIOT_SERVER_SERVICE_HOST)"]
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: eliot-presence
+  namespace: eliot
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: eliot-presence
+  template:
+    metadata:
+      name: eliot-presence
+      labels:
+        app: eliot-presence
+    spec:
+      containers:
+      - name: eliot-presence
+        image: alliasd/eliot
+        args: ["presence.js","$(ELIOT_SERVER_SERVICE_HOST)"]
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: eliot-radiator
+  namespace: eliot
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: eliot-radiator
+  template:
+    metadata:
+      name: eliot-radiator
+      labels:
+        app: eliot-radiator
+    spec:
+      containers:
+      - name: eliot-radiator
+        image: alliasd/eliot
+        args: ["radiator.js","$(ELIOT_SERVER_SERVICE_HOST)"]
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: eliot-light
+  namespace: eliot
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: eliot-light
+  template:
+    metadata:
+      name: eliot-light
+      labels:
+        app: eliot-light
+    spec:
+      containers:
+      - name: eliot-light
+        image: alliasd/eliot
+        args: ["light_control.js","$(ELIOT_SERVER_SERVICE_HOST)"]

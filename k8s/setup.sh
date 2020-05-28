@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash bash
 
 set pipefail -euo
 
@@ -18,34 +18,26 @@ nodes:
         node-labels: "ingress-ready=true"
         authorization-mode: "AlwaysAllow"
   extraPortMappings:
-  - containerPort: 30001 #Grafana
-    hostPort: 30001
-    protocol: TCP
   - containerPort: 30000 #Prometheus
     hostPort: 30000
     protocol: TCP
+  - containerPort: 30001 #Grafana
+    hostPort: 30001
+    protocol: TCP
+  - containerPort: 30002 #Leshan Server
+    hostPort: 30002
+    protocol: TCP
+  - containerPort: 30003 #Leshan Bootstrap Server
+    hostPort: 30003
+    protocol: TCP
 EOF
 
-echo
-echo "-------------Deploying prometheus----------"
-cd prometheus
-./setup.sh
-cd ..
-echo "Done"
-echo "############################################"
-
-echo
-echo "--------Deploying kube state metrics--------"
-cd kube-state-metrics
-./setup.sh
-cd ..
-echo "Done"
-echo "############################################"
-
-echo
-echo "------------Deploying grafana---------------"
-cd grafana
-./setup.sh
-cd ..
-echo "Done"
-echo "############################################"
+services=("prometheus" "kube-state-metrics" "grafana" "eliot")
+let service
+for service in ${services[@]}; do
+  echo
+  echo "-------------Deploying $service----------"
+  cd $service; ./setup.sh; cd ..
+  echo "Done"
+  echo "############################################"
+done

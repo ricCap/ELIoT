@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: eliot-bootstrap-server
+  namespace: eliot
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: eliot-bootstrap-server
+  template:
+    metadata:
+      name: eliot-bootstrap-server
+      labels:
+        app: eliot-bootstrap-server
+    spec:
+      containers:
+      - name: eliot-bootstrap-server
+        image: corfr/leshan
+        args: ["bootstrap"]
+        ports:
+        - containerPort: 8080

@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: eliot-server
+  namespace: eliot
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: eliot-server
+  template:
+    metadata:
+      name: eliot-server
+      labels:
+        app: eliot-server
+    spec:
+      containers:
+      - name: eliot-server
+        image: corfr/leshan
+        ports:
+        - containerPort: 8080
+        - protocol: UDP
+          containerPort: 5683

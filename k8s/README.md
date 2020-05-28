@@ -31,3 +31,17 @@ By running `./setup.sh` you can leave the script do the magic for you. If you pr
   `helm install stable/prometheus-node-exporter --version 1.9.1 --generate-name --set prometheus.monitor.namespace=monitoring --set namespaceOverride="monitoring"`
 
 9. Check that everything works `kubectl get po -A`
+
+10. Scale the number of devices
+
+  ```
+  kubectl scale deployment.v1.apps/eliot-presence -n eliot --replicas=2
+
+  kubectl scale deployment.v1.apps/eliot-radiator -n eliot --replicas=2
+
+  kubectl scale deployment.v1.apps/eliot-weather -n eliot --replicas=2
+
+  kubectl scale deployment.v1.apps/eliot-light -n eliot --replicas=2
+  ```
+
+11. Once you are done with using the application simply run `kind delete cluster`
