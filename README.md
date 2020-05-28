@@ -66,3 +66,7 @@ If you do not want to include the monitoring services just run
 or simply rename the docker-compose.override.yml file (e.g. to docker-compose.monitoring.yml), and then use it later through
 
 `docker-compose -f docker-compose.yml -f docker-compose.monitoring.yml up -d`
+
+### Persistency
+
+Prometheus data are stored under data/prometheus. Grafana configuration and data are instead store in docker volumes.
