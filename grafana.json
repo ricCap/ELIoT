@@ -1,26 +1,23 @@
 {
   "annotations": {
-    "list": [
-      {
-        "builtIn": 1,
-        "datasource": "-- Grafana --",
-        "enable": true,
-        "hide": true,
-        "iconColor": "rgba(0, 211, 255, 1)",
-        "name": "Annotations & Alerts",
-        "type": "dashboard"
-      }
-    ]
+    "list": [{
+      "builtIn": 1,
+      "datasource": "-- Grafana --",
+      "enable": true,
+      "hide": true,
+      "iconColor": "rgba(0, 211, 255, 1)",
+      "name": "Annotations & Alerts",
+      "type": "dashboard"
+    }]
   },
   "description": "A simple overview of the most important Docker host and container metrics. (cAdvisor/Prometheus)",
   "editable": true,
   "gnetId": 893,
   "graphTooltip": 1,
   "id": 1,
-  "iteration": 1589889262195,
+  "iteration": 1590586832120,
   "links": [],
-  "panels": [
-    {
+  "panels": [{
       "cacheTimeout": null,
       "colorBackground": false,
       "colorValue": false,
@@ -58,8 +55,7 @@
       "interval": null,
       "links": [],
       "mappingType": 1,
-      "mappingTypes": [
-        {
+      "mappingTypes": [{
           "name": "value to text",
           "value": 1
         },
@@ -75,41 +71,36 @@
       "postfixFontSize": "30%",
       "prefix": "",
       "prefixFontSize": "20%",
-      "rangeMaps": [
-        {
-          "from": "null",
-          "text": "N/A",
-          "to": "null"
-        }
-      ],
+      "rangeMaps": [{
+        "from": "null",
+        "text": "N/A",
+        "to": "null"
+      }],
       "sparkline": {
         "fillColor": "rgba(31, 118, 189, 0.18)",
         "full": false,
         "lineColor": "rgb(31, 120, 193)",
         "show": false
       },
-      "tableColumn": "",
-      "targets": [
-        {
-          "expr": "time() - node_boot_time{instance=~\"$server:.*\"}",
-          "hide": false,
-          "intervalFactor": 2,
-          "legendFormat": "",
-          "refId": "A",
-          "step": 1800
-        }
-      ],
+      "tableColumn": "{instance=\"node-exporter:9100\", job=\"node-exporter\"}",
+      "targets": [{
+        "expr": "time() - node_boot_time_seconds{instance=~\"$server:.*\"}",
+        "hide": false,
+        "interval": "",
+        "intervalFactor": 2,
+        "legendFormat": "",
+        "refId": "A",
+        "step": 1800
+      }],
       "thresholds": "",
       "title": "Uptime",
       "type": "singlestat",
       "valueFontSize": "80%",
-      "valueMaps": [
-        {
-          "op": "=",
-          "text": "N/A",
-          "value": "null"
-        }
-      ],
+      "valueMaps": [{
+        "op": "=",
+        "text": "N/A",
+        "value": "null"
+      }],
       "valueName": "current"
     },
     {
@@ -148,8 +139,7 @@
       "interval": null,
       "links": [],
       "mappingType": 1,
-      "mappingTypes": [
-        {
+      "mappingTypes": [{
           "name": "value to text",
           "value": 1
         },
@@ -165,13 +155,11 @@
       "postfixFontSize": "50%",
       "prefix": "",
       "prefixFontSize": "50%",
-      "rangeMaps": [
-        {
-          "from": "null",
-          "text": "N/A",
-          "to": "null"
-        }
-      ],
+      "rangeMaps": [{
+        "from": "null",
+        "text": "N/A",
+        "to": "null"
+      }],
       "sparkline": {
         "fillColor": "rgba(31, 118, 189, 0.18)",
         "full": false,
@@ -179,25 +167,23 @@
         "show": false
       },
       "tableColumn": "",
-      "targets": [
-        {
-          "expr": "count(rate(container_last_seen{name=~\".+\"}[$interval]))",
-          "intervalFactor": 2,
-          "refId": "A",
-          "step": 1800
-        }
-      ],
+      "targets": [{
+        "expr": "count(rate(container_last_seen{name=~\".+\"}[$interval]))",
+        "interval": "",
+        "intervalFactor": 2,
+        "legendFormat": "",
+        "refId": "A",
+        "step": 1800
+      }],
       "thresholds": "",
       "title": "Containers",
       "type": "singlestat",
       "valueFontSize": "120%",
-      "valueMaps": [
-        {
-          "op": "=",
-          "text": "N/A",
-          "value": "null"
-        }
-      ],
+      "valueMaps": [{
+        "op": "=",
+        "text": "N/A",
+        "value": "null"
+      }],
       "valueName": "current"
     },
     {
@@ -237,8 +223,7 @@
       "interval": null,
       "links": [],
       "mappingType": 1,
-      "mappingTypes": [
-        {
+      "mappingTypes": [{
           "name": "value to text",
           "value": 1
         },
@@ -254,13 +239,11 @@
       "postfixFontSize": "50%",
       "prefix": "",
       "prefixFontSize": "50%",
-      "rangeMaps": [
-        {
-          "from": "null",
-          "text": "N/A",
-          "to": "null"
-        }
-      ],
+      "rangeMaps": [{
+        "from": "null",
+        "text": "N/A",
+        "to": "null"
+      }],
       "sparkline": {
         "fillColor": "rgba(31, 118, 189, 0.18)",
         "full": false,
@@ -268,28 +251,24 @@
         "show": false
       },
       "tableColumn": "",
-      "targets": [
-        {
-          "expr": "min((node_filesystem_size_bytes{fstype=~\"xfs|ext4\",instance=~\"$server:.*\"} - node_filesystem_size_bytes{fstype=~\"xfs|ext4\",instance=~\"$server:.*\"} )/ node_filesystem_size_bytes{fstype=~\"xfs|ext4\",instance=~\"$server:.*\"})",
-          "hide": false,
-          "interval": "",
-          "intervalFactor": 2,
-          "legendFormat": "",
-          "refId": "A",
-          "step": 1800
-        }
-      ],
+      "targets": [{
+        "expr": "min((node_filesystem_size_bytes{fstype=~\"xfs|ext4\",instance=~\"$server:.*\"} - node_filesystem_avail_bytes{fstype=~\"xfs|ext4\",instance=~\"$server:.*\"} )/ node_filesystem_size_bytes{fstype=~\"xfs|ext4\",instance=~\"$server:.*\"})",
+        "hide": false,
+        "interval": "",
+        "intervalFactor": 2,
+        "legendFormat": "",
+        "refId": "A",
+        "step": 1800
+      }],
       "thresholds": "0.75, 0.90",
       "title": "Disk space",
       "type": "singlestat",
       "valueFontSize": "80%",
-      "valueMaps": [
-        {
-          "op": "=",
-          "text": "N/A",
-          "value": "null"
-        }
-      ],
+      "valueMaps": [{
+        "op": "=",
+        "text": "N/A",
+        "value": "null"
+      }],
       "valueName": "current"
     },
     {
@@ -329,8 +308,7 @@
       "interval": null,
       "links": [],
       "mappingType": 1,
-      "mappingTypes": [
-        {
+      "mappingTypes": [{
           "name": "value to text",
           "value": 1
         },
@@ -346,13 +324,11 @@
       "postfixFontSize": "50%",
       "prefix": "",
       "prefixFontSize": "50%",
-      "rangeMaps": [
-        {
-          "from": "null",
-          "text": "N/A",
-          "to": "null"
-        }
-      ],
+      "rangeMaps": [{
+        "from": "null",
+        "text": "N/A",
+        "to": "null"
+      }],
       "sparkline": {
         "fillColor": "rgba(31, 118, 189, 0.18)",
         "full": false,
@@ -360,27 +336,23 @@
         "show": false
       },
       "tableColumn": "{instance=\"node-exporter:9100\", job=\"node-exporter\"}",
-      "targets": [
-        {
-          "expr": "((node_memory_MemTotal_bytes - node_memory_MemAvailable_bytes) / node_memory_MemTotal_bytes) * 100",
-          "interval": "",
-          "intervalFactor": 2,
-          "legendFormat": "",
-          "refId": "A",
-          "step": 1800
-        }
-      ],
+      "targets": [{
+        "expr": "((node_memory_MemTotal_bytes - node_memory_MemAvailable_bytes) / node_memory_MemTotal_bytes) * 100",
+        "interval": "",
+        "intervalFactor": 2,
+        "legendFormat": "",
+        "refId": "A",
+        "step": 1800
+      }],
       "thresholds": "70, 90",
       "title": "Memory",
       "type": "singlestat",
       "valueFontSize": "80%",
-      "valueMaps": [
-        {
-          "op": "=",
-          "text": "N/A",
-          "value": "null"
-        }
-      ],
+      "valueMaps": [{
+        "op": "=",
+        "text": "N/A",
+        "value": "null"
+      }],
       "valueName": "current"
     },
     {
@@ -420,8 +392,7 @@
       "interval": null,
       "links": [],
       "mappingType": 1,
-      "mappingTypes": [
-        {
+      "mappingTypes": [{
           "name": "value to text",
           "value": 1
         },
@@ -437,40 +408,35 @@
       "postfixFontSize": "50%",
       "prefix": "",
       "prefixFontSize": "50%",
-      "rangeMaps": [
-        {
-          "from": "null",
-          "text": "N/A",
-          "to": "null"
-        }
-      ],
+      "rangeMaps": [{
+        "from": "null",
+        "text": "N/A",
+        "to": "null"
+      }],
       "sparkline": {
         "fillColor": "rgba(31, 118, 189, 0.18)",
         "full": false,
         "lineColor": "rgb(31, 120, 193)",
         "show": false
       },
-      "tableColumn": "",
-      "targets": [
-        {
-          "expr": "(node_memory_SwapTotal{instance=~'$server:.*'} - node_memory_SwapFree{instance=~'$server:.*'})",
-          "intervalFactor": 2,
-          "legendFormat": "",
-          "refId": "A",
-          "step": 1800
-        }
-      ],
+      "tableColumn": "{instance=\"node-exporter:9100\", job=\"node-exporter\"}",
+      "targets": [{
+        "expr": "(node_memory_SwapTotal_bytes{instance=~'$server:.*'} - node_memory_SwapFree_bytes{instance=~'$server:.*'})",
+        "interval": "",
+        "intervalFactor": 2,
+        "legendFormat": "",
+        "refId": "A",
+        "step": 1800
+      }],
       "thresholds": "400000000",
       "title": "Swap",
       "type": "singlestat",
       "valueFontSize": "80%",
-      "valueMaps": [
-        {
-          "op": "=",
-          "text": "N/A",
-          "value": "null"
-        }
-      ],
+      "valueMaps": [{
+        "op": "=",
+        "text": "N/A",
+        "value": "null"
+      }],
       "valueName": "current"
     },
     {
@@ -510,8 +476,7 @@
       "interval": null,
       "links": [],
       "mappingType": 1,
-      "mappingTypes": [
-        {
+      "mappingTypes": [{
           "name": "value to text",
           "value": 1
         },
@@ -527,39 +492,35 @@
       "postfixFontSize": "50%",
       "prefix": "",
       "prefixFontSize": "50%",
-      "rangeMaps": [
-        {
-          "from": "null",
-          "text": "N/A",
-          "to": "null"
-        }
-      ],
+      "rangeMaps": [{
+        "from": "null",
+        "text": "N/A",
+        "to": "null"
+      }],
       "sparkline": {
         "fillColor": "rgba(50, 189, 31, 0.18)",
         "full": false,
         "lineColor": "rgb(69, 193, 31)",
         "show": true
       },
-      "tableColumn": "",
-      "targets": [
-        {
-          "expr": "node_load1{instance=~\"$server:.*\"} / count by(job, instance)(count by(job, instance, cpu)(node_cpu{instance=~\"$server:.*\"}))",
-          "intervalFactor": 2,
-          "refId": "A",
-          "step": 1800
-        }
-      ],
+      "tableColumn": "{instance=\"node-exporter:9100\", job=\"node-exporter\"}",
+      "targets": [{
+        "expr": "node_load1{instance=~\"$server:.*\"} / count by(job, instance)(count by(job, instance, cpu)(node_cpu_seconds_total{instance=~\"$server:.*\"}))",
+        "interval": "",
+        "intervalFactor": 2,
+        "legendFormat": "",
+        "refId": "A",
+        "step": 1800
+      }],
       "thresholds": "0.8,0.9",
       "title": "Load",
       "type": "singlestat",
       "valueFontSize": "80%",
-      "valueMaps": [
-        {
-          "op": "=",
-          "text": "N/A",
-          "value": "null"
-        }
-      ],
+      "valueMaps": [{
+        "op": "=",
+        "text": "N/A",
+        "value": "null"
+      }],
       "valueName": "avg"
     },
     {
@@ -613,8 +574,7 @@
       "spaceLength": 10,
       "stack": false,
       "steppedLine": false,
-      "targets": [
-        {
+      "targets": [{
           "expr": "sum(rate(container_network_receive_bytes_total{id=\"/\"}[$interval])) by (id)",
           "intervalFactor": 2,
           "legendFormat": "RECEIVED",
@@ -649,8 +609,7 @@
         "show": false,
         "values": []
       },
-      "yaxes": [
-        {
+      "yaxes": [{
           "format": "bytes",
           "label": null,
           "logBase": 1,
@@ -723,8 +682,7 @@
       "spaceLength": 10,
       "stack": true,
       "steppedLine": false,
-      "targets": [
-        {
+      "targets": [{
           "expr": "sum(rate(container_cpu_system_seconds_total[1m]))",
           "hide": true,
           "intervalFactor": 2,
@@ -789,8 +747,7 @@
         "show": false,
         "values": []
       },
-      "yaxes": [
-        {
+      "yaxes": [{
           "format": "percent",
           "label": "",
           "logBase": 1,
@@ -814,38 +771,34 @@
     },
     {
       "alert": {
-        "conditions": [
-          {
-            "evaluator": {
-              "params": [
-                1.25
-              ],
-              "type": "gt"
-            },
-            "query": {
-              "params": [
-                "A",
-                "5m",
-                "now"
-              ]
-            },
-            "reducer": {
-              "params": [],
-              "type": "avg"
-            },
-            "type": "query"
-          }
-        ],
+        "conditions": [{
+          "evaluator": {
+            "params": [
+              1.25
+            ],
+            "type": "gt"
+          },
+          "query": {
+            "params": [
+              "A",
+              "5m",
+              "now"
+            ]
+          },
+          "reducer": {
+            "params": [],
+            "type": "avg"
+          },
+          "type": "query"
+        }],
         "executionErrorState": "alerting",
         "frequency": "60s",
         "handler": 1,
         "name": "Panel Title alert",
         "noDataState": "keep_state",
-        "notifications": [
-          {
-            "id": 1
-          }
-        ]
+        "notifications": [{
+          "id": 1
+        }]
       },
       "aliasColors": {},
       "bars": false,
@@ -895,25 +848,21 @@
       "spaceLength": 10,
       "stack": false,
       "steppedLine": false,
-      "targets": [
-        {
-          "expr": "node_load1{instance=~\"$server:.*\"} / count by(job, instance)(count by(job, instance, cpu)(node_cpu_seconds_total{instance=~\"$server:.*\"}))",
-          "interval": "",
-          "intervalFactor": 2,
-          "legendFormat": "",
-          "refId": "A",
-          "step": 600
-        }
-      ],
-      "thresholds": [
-        {
-          "colorMode": "critical",
-          "fill": true,
-          "line": true,
-          "op": "gt",
-          "value": 1.25
-        }
-      ],
+      "targets": [{
+        "expr": "node_load1{instance=~\"$server:.*\"} / count by(job, instance)(count by(job, instance, cpu)(node_cpu_seconds_total{instance=~\"$server:.*\"}))",
+        "interval": "",
+        "intervalFactor": 2,
+        "legendFormat": "",
+        "refId": "A",
+        "step": 600
+      }],
+      "thresholds": [{
+        "colorMode": "critical",
+        "fill": true,
+        "line": true,
+        "op": "gt",
+        "value": 1.25
+      }],
       "timeFrom": null,
       "timeRegions": [],
       "timeShift": null,
@@ -932,8 +881,7 @@
         "show": false,
         "values": []
       },
-      "yaxes": [
-        {
+      "yaxes": [{
           "format": "percentunit",
           "label": null,
           "logBase": 1,
@@ -957,38 +905,34 @@
     },
     {
       "alert": {
-        "conditions": [
-          {
-            "evaluator": {
-              "params": [
-                850000000000
-              ],
-              "type": "gt"
-            },
-            "query": {
-              "params": [
-                "A",
-                "5m",
-                "now"
-              ]
-            },
-            "reducer": {
-              "params": [],
-              "type": "avg"
-            },
-            "type": "query"
-          }
-        ],
+        "conditions": [{
+          "evaluator": {
+            "params": [
+              850000000000
+            ],
+            "type": "gt"
+          },
+          "query": {
+            "params": [
+              "A",
+              "5m",
+              "now"
+            ]
+          },
+          "reducer": {
+            "params": [],
+            "type": "avg"
+          },
+          "type": "query"
+        }],
         "executionErrorState": "alerting",
         "frequency": "60s",
         "handler": 1,
         "name": "Free/Used Disk Space alert",
         "noDataState": "keep_state",
-        "notifications": [
-          {
-            "id": 1
-          }
-        ]
+        "notifications": [{
+          "id": 1
+        }]
       },
       "aliasColors": {
         "Belegete Festplatte": "#BF1B00",
@@ -1039,34 +983,28 @@
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
-      "seriesOverrides": [
-        {
-          "alias": "Used Disk Space",
-          "yaxis": 1
-        }
-      ],
+      "seriesOverrides": [{
+        "alias": "Used Disk Space",
+        "yaxis": 1
+      }],
       "spaceLength": 10,
       "stack": true,
       "steppedLine": false,
-      "targets": [
-        {
-          "expr": "node_filesystem_size{fstype=\"aufs\"} - node_filesystem_free{fstype=\"aufs\"}",
-          "hide": false,
-          "intervalFactor": 2,
-          "legendFormat": "Used Disk Space",
-          "refId": "A",
-          "step": 600
-        }
-      ],
-      "thresholds": [
-        {
-          "colorMode": "critical",
-          "fill": true,
-          "line": true,
-          "op": "gt",
-          "value": 850000000000
-        }
-      ],
+      "targets": [{
+        "expr": "node_filesystem_size{fstype=\"aufs\"} - node_filesystem_free{fstype=\"aufs\"}",
+        "hide": false,
+        "intervalFactor": 2,
+        "legendFormat": "Used Disk Space",
+        "refId": "A",
+        "step": 600
+      }],
+      "thresholds": [{
+        "colorMode": "critical",
+        "fill": true,
+        "line": true,
+        "op": "gt",
+        "value": 850000000000
+      }],
       "timeFrom": null,
       "timeRegions": [],
       "timeShift": null,
@@ -1085,8 +1023,7 @@
         "show": false,
         "values": []
       },
-      "yaxes": [
-        {
+      "yaxes": [{
           "format": "bytes",
           "label": "",
           "logBase": 1,
@@ -1110,38 +1047,34 @@
     },
     {
       "alert": {
-        "conditions": [
-          {
-            "evaluator": {
-              "params": [
-                10000000000
-              ],
-              "type": "gt"
-            },
-            "query": {
-              "params": [
-                "A",
-                "5m",
-                "now"
-              ]
-            },
-            "reducer": {
-              "params": [],
-              "type": "avg"
-            },
-            "type": "query"
-          }
-        ],
+        "conditions": [{
+          "evaluator": {
+            "params": [
+              10000000000
+            ],
+            "type": "gt"
+          },
+          "query": {
+            "params": [
+              "A",
+              "5m",
+              "now"
+            ]
+          },
+          "reducer": {
+            "params": [],
+            "type": "avg"
+          },
+          "type": "query"
+        }],
         "executionErrorState": "alerting",
         "frequency": "60s",
         "handler": 1,
         "name": "Available Memory alert",
         "noDataState": "keep_state",
-        "notifications": [
-          {
-            "id": 1
-          }
-        ]
+        "notifications": [{
+          "id": 1
+        }]
       },
       "aliasColors": {
         "Available Memory": "#7EB26D",
@@ -1194,10 +1127,10 @@
       "spaceLength": 10,
       "stack": true,
       "steppedLine": false,
-      "targets": [
-        {
+      "targets": [{
           "expr": "container_memory_rss{name=~\".+\"}",
           "hide": true,
+          "interval": "",
           "intervalFactor": 2,
           "legendFormat": "{{__name__}}",
           "refId": "D",
@@ -1214,6 +1147,7 @@
         {
           "expr": "container_memory_usage_bytes{name=~\".+\"}",
           "hide": true,
+          "interval": "",
           "intervalFactor": 2,
           "legendFormat": "{{name}}",
           "refId": "B",
@@ -1236,16 +1170,18 @@
           "step": 20
         },
         {
-          "expr": "node_memory_Buffers",
+          "expr": "node_memory_Buffers_bytes",
           "hide": true,
+          "interval": "",
           "intervalFactor": 2,
           "legendFormat": "node_memory_Dirty",
           "refId": "N",
           "step": 30
         },
         {
-          "expr": "node_memory_MemFree",
+          "expr": "node_memory_MemFree_bytes",
           "hide": true,
+          "interval": "",
           "intervalFactor": 2,
           "legendFormat": "{{__name__}}",
           "refId": "F",
@@ -1324,15 +1260,13 @@
           "step": 40
         }
       ],
-      "thresholds": [
-        {
-          "colorMode": "critical",
-          "fill": true,
-          "line": true,
-          "op": "gt",
-          "value": 10000000000
-        }
-      ],
+      "thresholds": [{
+        "colorMode": "critical",
+        "fill": true,
+        "line": true,
+        "op": "gt",
+        "value": 10000000000
+      }],
       "timeFrom": null,
       "timeRegions": [],
       "timeShift": null,
@@ -1351,8 +1285,7 @@
         "show": false,
         "values": []
       },
-      "yaxes": [
-        {
+      "yaxes": [{
           "format": "bytes",
           "label": "",
           "logBase": 1,
@@ -1426,8 +1359,7 @@
       "spaceLength": 10,
       "stack": false,
       "steppedLine": false,
-      "targets": [
-        {
+      "targets": [{
           "expr": "-sum(rate(node_disk_bytes_read[$interval])) by (device)",
           "hide": false,
           "intervalFactor": 2,
@@ -1464,8 +1396,7 @@
         "show": false,
         "values": []
       },
-      "yaxes": [
-        {
+      "yaxes": [{
           "format": "Bps",
           "label": null,
           "logBase": 1,
@@ -1538,9 +1469,9 @@
       "spaceLength": 10,
       "stack": false,
       "steppedLine": false,
-      "targets": [
-        {
+      "targets": [{
           "expr": "sum(rate(container_network_receive_bytes_total{name=~\".+\"}[$interval])) by (name)",
+          "interval": "",
           "intervalFactor": 2,
           "legendFormat": "{{name}}",
           "refId": "A",
@@ -1574,8 +1505,7 @@
         "show": true,
         "values": []
       },
-      "yaxes": [
-        {
+      "yaxes": [{
           "format": "Bps",
           "label": null,
           "logBase": 1,
@@ -1650,8 +1580,7 @@
       "spaceLength": 10,
       "stack": false,
       "steppedLine": false,
-      "targets": [
-        {
+      "targets": [{
           "expr": "sum(rate(container_network_transmit_bytes_total{name=~\".+\"}[$interval])) by (name)",
           "intervalFactor": 2,
           "legendFormat": "{{name}}",
@@ -1686,8 +1615,7 @@
         "show": true,
         "values": []
       },
-      "yaxes": [
-        {
+      "yaxes": [{
           "format": "Bps",
           "label": "",
           "logBase": 1,
@@ -1760,18 +1688,16 @@
       "spaceLength": 10,
       "stack": true,
       "steppedLine": false,
-      "targets": [
-        {
-          "expr": "sum(rate(container_cpu_usage_seconds_total{name=~\".+\"}[$interval])) by (name) * 100",
-          "hide": false,
-          "interval": "",
-          "intervalFactor": 2,
-          "legendFormat": "{{name}}",
-          "metric": "",
-          "refId": "F",
-          "step": 240
-        }
-      ],
+      "targets": [{
+        "expr": "sum(rate(container_cpu_usage_seconds_total{name=~\".+\"}[$interval])) by (name) * 100",
+        "hide": false,
+        "interval": "",
+        "intervalFactor": 2,
+        "legendFormat": "{{name}}",
+        "metric": "",
+        "refId": "F",
+        "step": 240
+      }],
       "thresholds": [],
       "timeFrom": null,
       "timeRegions": [],
@@ -1791,8 +1717,7 @@
         "show": true,
         "values": []
       },
-      "yaxes": [
-        {
+      "yaxes": [{
           "format": "percent",
           "label": "",
           "logBase": 1,
@@ -1864,8 +1789,7 @@
       "spaceLength": 10,
       "stack": true,
       "steppedLine": false,
-      "targets": [
-        {
+      "targets": [{
           "expr": "sum(container_memory_swap{name=~\".+\"}) by (name)",
           "hide": false,
           "intervalFactor": 2,
@@ -1901,8 +1825,7 @@
         "show": true,
         "values": []
       },
-      "yaxes": [
-        {
+      "yaxes": [{
           "format": "bytes",
           "label": "",
           "logBase": 1,
@@ -1975,8 +1898,7 @@
       "spaceLength": 10,
       "stack": true,
       "steppedLine": false,
-      "targets": [
-        {
+      "targets": [{
           "expr": "sum(container_memory_rss{name=~\".+\"}) by (name)",
           "hide": false,
           "intervalFactor": 2,
@@ -2012,8 +1934,7 @@
         "show": true,
         "values": []
       },
-      "yaxes": [
-        {
+      "yaxes": [{
           "format": "bytes",
           "label": "",
           "logBase": 1,
@@ -2036,12 +1957,10 @@
       }
     },
     {
-      "columns": [
-        {
-          "text": "Current",
-          "value": "current"
-        }
-      ],
+      "columns": [{
+        "text": "Current",
+        "value": "current"
+      }],
       "datasource": null,
       "editable": true,
       "error": false,
@@ -2067,27 +1986,24 @@
         "col": 0,
         "desc": true
       },
-      "styles": [
-        {
-          "align": "auto",
-          "colorMode": null,
-          "colors": [
-            "rgba(245, 54, 54, 0.9)",
-            "rgba(237, 129, 40, 0.89)",
-            "rgba(50, 172, 45, 0.97)"
-          ],
-          "decimals": 2,
-          "pattern": "/.*/",
-          "thresholds": [
-            "10000000",
-            " 25000000"
-          ],
-          "type": "number",
-          "unit": "decbytes"
-        }
-      ],
-      "targets": [
-        {
+      "styles": [{
+        "align": "auto",
+        "colorMode": null,
+        "colors": [
+          "rgba(245, 54, 54, 0.9)",
+          "rgba(237, 129, 40, 0.89)",
+          "rgba(50, 172, 45, 0.97)"
+        ],
+        "decimals": 2,
+        "pattern": "/.*/",
+        "thresholds": [
+          "10000000",
+          " 25000000"
+        ],
+        "type": "number",
+        "unit": "decbytes"
+      }],
+      "targets": [{
           "expr": "sum(container_spec_memory_limit_bytes{name=~\".+\"} - container_memory_usage_bytes{name=~\".+\"}) by (name) ",
           "hide": true,
           "intervalFactor": 2,
@@ -2118,12 +2034,10 @@
       "type": "table-old"
     },
     {
-      "columns": [
-        {
-          "text": "Current",
-          "value": "current"
-        }
-      ],
+      "columns": [{
+        "text": "Current",
+        "value": "current"
+      }],
       "datasource": null,
       "editable": true,
       "error": false,
@@ -2149,27 +2063,24 @@
         "col": 0,
         "desc": true
       },
-      "styles": [
-        {
-          "align": "auto",
-          "colorMode": null,
-          "colors": [
-            "rgba(245, 54, 54, 0.9)",
-            "rgba(237, 129, 40, 0.89)",
-            "rgba(50, 172, 45, 0.97)"
-          ],
-          "decimals": 2,
-          "pattern": "/.*/",
-          "thresholds": [
-            "10000000",
-            " 25000000"
-          ],
-          "type": "number",
-          "unit": "decbytes"
-        }
-      ],
-      "targets": [
-        {
+      "styles": [{
+        "align": "auto",
+        "colorMode": null,
+        "colors": [
+          "rgba(245, 54, 54, 0.9)",
+          "rgba(237, 129, 40, 0.89)",
+          "rgba(50, 172, 45, 0.97)"
+        ],
+        "decimals": 2,
+        "pattern": "/.*/",
+        "thresholds": [
+          "10000000",
+          " 25000000"
+        ],
+        "type": "number",
+        "unit": "decbytes"
+      }],
+      "targets": [{
           "expr": "sum(container_spec_memory_limit_bytes{name=~\".+\"} - container_memory_usage_bytes{name=~\".+\"}) by (name) ",
           "hide": true,
           "intervalFactor": 2,
@@ -2200,12 +2111,10 @@
       "type": "table-old"
     },
     {
-      "columns": [
-        {
-          "text": "Current",
-          "value": "current"
-        }
-      ],
+      "columns": [{
+        "text": "Current",
+        "value": "current"
+      }],
       "datasource": null,
       "editable": true,
       "error": false,
@@ -2231,28 +2140,26 @@
         "col": 1,
         "desc": true
       },
-      "styles": [
-        {
-          "align": "auto",
-          "colorMode": "cell",
-          "colors": [
-            "rgba(50, 172, 45, 0.97)",
-            "rgba(237, 129, 40, 0.89)",
-            "rgba(245, 54, 54, 0.9)"
-          ],
-          "decimals": 2,
-          "pattern": "/.*/",
-          "thresholds": [
-            "80",
-            "90"
-          ],
-          "type": "number",
-          "unit": "percent"
-        }
-      ],
-      "targets": [
-        {
+      "styles": [{
+        "align": "auto",
+        "colorMode": "cell",
+        "colors": [
+          "rgba(50, 172, 45, 0.97)",
+          "rgba(237, 129, 40, 0.89)",
+          "rgba(245, 54, 54, 0.9)"
+        ],
+        "decimals": 2,
+        "pattern": "/.*/",
+        "thresholds": [
+          "80",
+          "90"
+        ],
+        "type": "number",
+        "unit": "percent"
+      }],
+      "targets": [{
           "expr": "sum(100 - ((container_spec_memory_limit_bytes{name=~\".+\"} - container_memory_usage_bytes{name=~\".+\"})  * 100 / container_spec_memory_limit_bytes{name=~\".+\"}) ) by (name) ",
+          "interval": "",
           "intervalFactor": 2,
           "legendFormat": "{{name}}",
           "metric": "",
@@ -2281,17 +2188,15 @@
       "type": "table-old"
     }
   ],
-  "refresh": "5m",
+  "refresh": "5s",
   "schemaVersion": 25,
   "style": "dark",
   "tags": [],
   "templating": {
-    "list": [
-      {
+    "list": [{
         "allValue": ".+",
         "current": {
-          "selected": true,
-          "tags": [],
+          "selected": false,
           "text": "All",
           "value": [
             "$__all"
@@ -2331,11 +2236,20 @@
         "label": "Interval",
         "multi": false,
         "name": "interval",
-        "options": [
-          {
+        "options": [{
             "selected": true,
             "text": "auto",
             "value": "$__auto_interval_interval"
+          },
+          {
+            "selected": false,
+            "text": "5s",
+            "value": "5s"
+          },
+          {
+            "selected": false,
+            "text": "15s",
+            "value": "15s"
           },
           {
             "selected": false,
@@ -2361,59 +2275,10 @@
             "selected": false,
             "text": "5m",
             "value": "5m"
-          },
-          {
-            "selected": false,
-            "text": "7m",
-            "value": "7m"
-          },
-          {
-            "selected": false,
-            "text": "10m",
-            "value": "10m"
-          },
-          {
-            "selected": false,
-            "text": "30m",
-            "value": "30m"
-          },
-          {
-            "selected": false,
-            "text": "1h",
-            "value": "1h"
-          },
-          {
-            "selected": false,
-            "text": "6h",
-            "value": "6h"
-          },
-          {
-            "selected": false,
-            "text": "12h",
-            "value": "12h"
-          },
-          {
-            "selected": false,
-            "text": "1d",
-            "value": "1d"
-          },
-          {
-            "selected": false,
-            "text": "7d",
-            "value": "7d"
-          },
-          {
-            "selected": false,
-            "text": "14d",
-            "value": "14d"
-          },
-          {
-            "selected": false,
-            "text": "30d",
-            "value": "30d"
           }
         ],
-        "query": "30s,1m,2m,3m,5m,7m,10m,30m,1h,6h,12h,1d,7d,14d,30d",
+        "query": "5s, 15s, 30s,1m,2m,3m,5m",
+        "queryValue": "",
         "refresh": 2,
         "skipUrlSync": false,
         "type": "interval"
@@ -2421,9 +2286,12 @@
       {
         "allValue": null,
         "current": {
-          "selected": false,
+          "selected": true,
+          "tags": [],
           "text": "node-exporter",
-          "value": "node-exporter"
+          "value": [
+            "node-exporter"
+          ]
         },
         "datasource": "Prometheus",
         "definition": "label_values(node_boot_time_seconds, instance)",
@@ -2447,7 +2315,7 @@
     ]
   },
   "time": {
-    "from": "now-24h",
+    "from": "now-5m",
     "to": "now"
   },
   "timepicker": {

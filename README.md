@@ -6,16 +6,14 @@ More detailed information about ELIOT can be found from [wiki](https://github.co
 
 **This module implements the following LWM2M interfaces & operations:**
 
-
-| Bootstrap | Register   | Device Management & Service Enablement | Information Reporting |
-| --------- | ---------- | -------------------------------------- | ---------------------
-| Bootstrap | Register   | Read (Text/JSON/TLV)  | Observe (Text/JSON/TLV) |
-|           | Update     | Write (Text/JSON/TLV) | Notify (Text/JSON/TLV)  |
-|           | Deregister | Create (JSON/TLV)     | Cancel                  |
-|           |            | Execute               |                         |
-|           |            | Delete                |                         |
-|           |            | Write attributes      |                         |
-
+| Bootstrap | Register   | Device Management & Service Enablement | Information Reporting   |
+| --------- | ---------- | -------------------------------------- | ----------------------- |
+| Bootstrap | Register   | Read (Text/JSON/TLV)                   | Observe (Text/JSON/TLV) |
+|           | Update     | Write (Text/JSON/TLV)                  | Notify (Text/JSON/TLV)  |
+|           | Deregister | Create (JSON/TLV)                      | Cancel                  |
+|           |            | Execute                                |                         |
+|           |            | Delete                                 |                         |
+|           |            | Write attributes                       |                         |
 
 ## Usage with Docker
 
@@ -23,13 +21,13 @@ More detailed information about ELIOT can be found from [wiki](https://github.co
 
 1. Run the LWM2M Server:
 
-   `docker run --rm -ti --name ms corfr/leshan `
+   `docker run --rm -ti --name ms corfr/leshan`
 
 2. Run the LWM2M Bootstrap Server:
 
    `docker run --rm -ti --name bss --link ms corfr/leshan bootstrap`
 
-3. Run the devices (PresenceDetector | WeatherObserver | LightController | Radiator):  
+3. Run the devices (PresenceDetector | WeatherObserver | LightController | Radiator):
 
    **Without Bootstrap Server**
 
@@ -53,9 +51,18 @@ More detailed information about ELIOT can be found from [wiki](https://github.co
 
    **Note**: instead of using the name ms/bss you can use the IP address without the --link flags.
 
-4. Run multiple clients with docker-compose
+4. Run multiple clients with docker-compose. The basic configuration docker-compose spins-up the LWM2Mbootstrap server and the LWM2M server plus the IoT devices. The default configuration includes also monitoring capabilities: cadvisor for containers monitoring, node exporter for machine monitoring, prometheus to collect the various metrics, and Grafana to show them.
 
-   `docker-compose up`
+Note the -d flag to run docker-compose in detached mode.
 
-   `docker-compose scale weather=X presence=X radiator=X light=X`
+`docker-compose up -d`
 
+`docker-compose scale weather=X presence=X radiator=X light=X`
+
+If you do not want to include the monitoring services just run
+
+`docker-compose -f docker-compose.yml up -d`
+
+or simply rename the docker-compose.override.yml file (e.g. to docker-compose.monitoring.yml), and then use it later through
+
+`docker-compose -f docker-compose.yml -f docker-compose.monitoring.yml up -d`
