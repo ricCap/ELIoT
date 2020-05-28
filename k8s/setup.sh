@@ -1,5 +1,10 @@
 #!/usr/bin/env bash
 
+set pipefail -euo
+
+chmod -R 765 ./*.sh
+
+# Create KIND cluster
 cat <<EOF | kind create cluster --config=-
 kind: Cluster
 apiVersion: kind.x-k8s.io/v1alpha4
