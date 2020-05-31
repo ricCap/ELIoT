@@ -10,8 +10,8 @@ services:
     - --config.file=/etc/prometheus/prometheus.yml
     volumes:
     - ./config/prometheus.yml:/etc/prometheus/prometheus.yml:ro
-    - ./data/prometheus:/prometheus/data
-    depends_on: 
+    - prometheus-data:/prometheus/data
+    depends_on:
     - cadvisor
     - node-exporter
     links:
@@ -35,7 +35,7 @@ services:
     container_name: monitoring_node_exporter
     restart: unless-stopped
     expose:
-      - 9100 
+      - 9100
   grafana:
     image: grafana/grafana:latest
     container_name: grafana
@@ -48,7 +48,8 @@ services:
     - prometheus
     links:
     - prometheus:prometheus
-    
+
 volumes:
   grafana-data:
   grafana-config:
+  prometheus-data:
