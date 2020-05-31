@@ -31,11 +31,11 @@ Bootstrap | Register   | Read (Text/JSON/TLV)                   | Observe (Text/
 
   **Without Bootstrap Server**
 
-  `docker run -it --link ms alliasd/eliot <jsfile_name> ms [OPTIONS]`
+  `docker run -it --link ms riccap/eliot <jsfile_name> ms [OPTIONS]`
 
   **With Bootstrap Server**
 
-  `docker run -it --link bss --link ms alliasd/eliot <jsfile_name> bss [OPTIONS]`
+  `docker run -it --link bss --link ms riccap/eliot <jsfile_name> bss [OPTIONS]`
 
   ```
   JS-files:

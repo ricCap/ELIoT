@@ -14,25 +14,25 @@ services:
         - 8081:8080
         command: bootstrap
     weather:
-        image: alliasd/eliot
+        image: riccap/eliot
         command: ${WEATHER}
         depends_on:
         - bss
         - ms
     presence:
-        image: alliasd/eliot
+        image: riccap/eliot
         command: ${PRESENCE}
         depends_on:
         - bss
         - ms
     radiator:
-       image: alliasd/eliot
+       image: riccap/eliot
        command: ${RADIATOR}
        depends_on:
        - bss
        - ms
     light:
-       image: alliasd/eliot
+       image: riccap/eliot
        command: ${LIGHT}
        depends_on:
        - bss

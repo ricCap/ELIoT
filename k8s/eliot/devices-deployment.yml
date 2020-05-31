@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: eliot-weather
-        image: alliasd/eliot
+        image: riccap/eliot
         args: ["weather.js","$(ELIOT_SERVER_SERVICE_HOST)"]
 ---
 apiVersion: apps/v1
@@ -37,7 +37,7 @@ spec:
     spec:
       containers:
       - name: eliot-presence
-        image: alliasd/eliot
+        image: riccap/eliot
         args: ["presence.js","$(ELIOT_SERVER_SERVICE_HOST)"]
 ---
 apiVersion: apps/v1
@@ -58,7 +58,7 @@ spec:
     spec:
       containers:
       - name: eliot-radiator
-        image: alliasd/eliot
+        image: riccap/eliot
         args: ["radiator.js","$(ELIOT_SERVER_SERVICE_HOST)"]
 ---
 apiVersion: apps/v1
@@ -79,5 +79,5 @@ spec:
     spec:
       containers:
       - name: eliot-light
-        image: alliasd/eliot
+        image: riccap/eliot
         args: ["light_control.js","$(ELIOT_SERVER_SERVICE_HOST)"]
