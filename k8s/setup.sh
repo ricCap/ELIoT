@@ -1,38 +1,49 @@
-#!/bin/bash bash
-
-set pipefail -euo
-
+#!/bin/bash
+#set -euo pipefail
 chmod -R 765 ./*.sh
 
-# Create KIND cluster
-cat <<EOF | kind create cluster --config=-
-kind: Cluster
-apiVersion: kind.x-k8s.io/v1alpha4
-nodes:
-- role: control-plane
-  kubeadmConfigPatches:
-  - |
-    kind: InitConfiguration
-    nodeRegistration:
-      kubeletExtraArgs:
-        node-labels: "ingress-ready=true"
-        authorization-mode: "AlwaysAllow"
-  extraPortMappings:
-  - containerPort: 30000 #Prometheus
-    hostPort: 30000
-    protocol: TCP
-  - containerPort: 30001 #Grafana
-    hostPort: 30001
-    protocol: TCP
-  - containerPort: 30002 #Leshan Server
-    hostPort: 30002
-    protocol: TCP
-  - containerPort: 30003 #Leshan Bootstrap Server
-    hostPort: 30003
-    protocol: TCP
-EOF
-
 services=("prometheus" "kube-state-metrics" "grafana" "eliot")
+
+if [[ $# -eq 0 ]]; then
+  echo "Try setup.sh -h"
+  exit
+fi
+
+while [[ "$1" =~ ^- && ! "$1" == "--" ]]; do case $1 in
+  -k|--kind)
+    command="kind"
+    ;;
+  -s|--services)
+    shift; services=($1)
+    ;;
+  -a|--admin)
+    command="kubeadm"
+    ;;
+  -d|--default-services)
+    ;;
+  -s|--show-default-services)
+    echo ${services[@]}
+    exit
+    ;;
+  -h|--help|*)
+    echo "-k|--kind kind               Create a kind cluster"
+    echo '-s|--services A || "A B C"   Deploy a single service A or a list of services "A B C"'
+    echo "-d|--default-services        Deploy default services"
+    echo "-s|--show-default-services   Show services that are deployed by default"
+    echo "-a|--admin                   Deploy a k8s cluster using kubeadm"
+    exit
+    ;;
+esac; shift; done
+
+if [[ -n "$command" ]]; then
+  if [[ "$command" == 'kind' ]]; then
+    kind create cluster --config=../config/kind.yml
+  elif [[ "$command" == 'kubeadm' ]]; then
+    ./setup-adm.sh
+  fi
+fi
+
+# Deploy services
 let service
 for service in ${services[@]}; do
   echo

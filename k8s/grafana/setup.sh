@@ -1,6 +1,6 @@
-#!/bin/bash bash
+#!/bin/bash
 
-set pipefail -euo
+set -euo pipefail
 
 kubectl apply -f config-map.yml
 kubectl apply -f deployment.yml

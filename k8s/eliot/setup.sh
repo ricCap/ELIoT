@@ -1,6 +1,6 @@
-#!/bin/bash bash
+#!/bin/bash
 
-set pipefail -euo
+set -euo pipefail
 
 kubectl create namespace eliot
 kubectl apply -f bootstrap-server-deployment.yml

@@ -1,6 +1,6 @@
-#!/bin/bash bash
+#!/bin/bash
 
-set pipefail -euo
+set -euo pipefail
 
 kubectl apply -f cluster-role.yml
 kubectl apply -f cluster-role-binding.yml
