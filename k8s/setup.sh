@@ -25,12 +25,18 @@ while [[ "$1" =~ ^- && ! "$1" == "--" ]]; do case $1 in
     echo ${services[@]}
     exit
     ;;
+  --no-services)
+    services=()
+    ;;
   -h|--help|*)
+    echo "Services are automatically deployed when creating a cluster"
+    echo
     echo "-k|--kind kind               Create a kind cluster"
+    echo "-a|--admin                   Deploy a k8s cluster using kubeadm"
     echo '-s|--services A || "A B C"   Deploy a single service A or a list of services "A B C"'
     echo "-d|--default-services        Deploy default services"
     echo "-s|--show-default-services   Show services that are deployed by default"
-    echo "-a|--admin                   Deploy a k8s cluster using kubeadm"
+    echo "--no-services                Do not deploy default services"
     exit
     ;;
 esac; shift; done

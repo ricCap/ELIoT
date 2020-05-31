@@ -1,8 +1,10 @@
 # Deploy ELIoT on K8s
 
+## Develop locally using KIND
+
 [KIND](https://kind.sigs.k8s.io/), alias Kubernetes IN Docker, allows to deploy k8s clusters locally (in Docker). As an advantage to Minikube, it can handle multinode configuration on the same machine (e.g. 1 master node and 2 worker nodes).
 
-By running `./setup.sh` you can leave the script do the magic for you. If you prefer to use some other tool rather than KIND (e.g. Minikube), simply follow the instructions below.
+By running `./setup.sh --kind` you can leave the script do the magic for you. If you prefer to use some other tool rather than KIND (e.g. Minikube), simply follow the instructions below.
 
 1. At first the kind cluter is created and some ports are exposed to the host machine (i.e. your laptop). The ports are localhost:30000 for Prometheus and localhost:30001 for Grafana. If you don't use kind you might need to configure your own port forwarding.
 
@@ -45,3 +47,7 @@ By running `./setup.sh` you can leave the script do the magic for you. If you pr
   ```
 
 11. Once you are done with using the application simply run `kind delete cluster`
+
+# Deploy over multiple servers
+
+Be sure to have the correct configuration ready on the server where you want to k8s run the control-plane ([docs](https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/install-kubeadm/)). Then run `./setup.sh --admin`. For more information check [k8s docs](https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/).
