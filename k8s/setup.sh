@@ -21,7 +21,7 @@ while [[ "$1" =~ ^- && ! "$1" == "--" ]]; do case $1 in
     ;;
   -d|--default-services)
     ;;
-  -s|--show-default-services)
+  --show-default-services)
     echo ${services[@]}
     exit
     ;;
