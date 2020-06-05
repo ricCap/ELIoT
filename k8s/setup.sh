@@ -9,6 +9,21 @@ if [[ $# -eq 0 ]]; then
   exit
 fi
 
+# Scale eliot devices
+function scale() {
+  readonly TARGET=$1
+  readonly REPLICAS=$2
+
+  if [[ "$TARGET" == "all" ]]; then
+    kubectl scale deployment.v1.apps/eliot-presence -n eliot --replicas=$REPLICAS
+    kubectl scale deployment.v1.apps/eliot-radiator -n eliot --replicas=$REPLICAS
+    kubectl scale deployment.v1.apps/eliot-weather -n eliot --replicas=$REPLICAS
+    kubectl scale deployment.v1.apps/eliot-light -n eliot --replicas=$REPLICAS
+  else
+    kubectl scale deployment.v1.apps/$1 -n eliot --replicas=$REPLICAS
+  fi
+}
+
 while [[ "$1" =~ ^- && ! "$1" == "--" ]]; do case $1 in
   -k|--kind)
     command="kind"
@@ -28,6 +43,12 @@ while [[ "$1" =~ ^- && ! "$1" == "--" ]]; do case $1 in
   --no-services)
     services=()
     ;;
+  --scale)
+    shift; target=$1
+    shift; replicas=$1
+    scale $target $replicas
+    exit
+    ;;
   -h|--help|*)
     echo "Services are automatically deployed when creating a cluster"
     echo
@@ -35,7 +56,8 @@ while [[ "$1" =~ ^- && ! "$1" == "--" ]]; do case $1 in
     echo "-a|--admin                   Deploy a k8s cluster using kubeadm"
     echo '-s|--services A || "A B C"   Deploy a single service A or a list of services "A B C"'
     echo "-d|--default-services        Deploy default services"
-    echo "-s|--show-default-services   Show services that are deployed by default"
+    echo "--show-default-services      Show services that are deployed by default"
+    echo "--scale TARGET REPLICAS      Scale the target device to number of replicas; target \"all\" is allowed"
     echo "--no-services                Do not deploy default services"
     exit
     ;;
