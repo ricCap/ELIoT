@@ -48,6 +48,25 @@ By running `./setup.sh --kind` you can leave the script do the magic for you. If
 
 11. Once you are done with using the application simply run `kind delete cluster`
 
+## Default configuration
+
+The dafault max number of pods per node is 110\. Adding worker nodes to kind configuration increases the number of deployable pods by the default 110 per node.
+
+```
+- role: worker
+  extraMounts:
+  - hostPath: /tmp/eliot
+    containerPath: /tmp/eliot
+```
+
+Note that the various services (e.g. grafana) might be deployed on other nodes, meaning that you would need to port-forward them directly if you want to get access.
+
+`kubectl port-forward POD -n NAMESPACE HOST_PORT:POD_PORT`
+
+or
+
+`docker port-forward NODE HOST_PORT:NODE_PORT`
+
 # Deploy over multiple servers
 
 Be sure to have the correct configuration ready on the server where you want to k8s run the control-plane ([docs](https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/install-kubeadm/)). Then run `./setup.sh --admin`. For more information check [k8s docs](https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/).
