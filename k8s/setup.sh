@@ -2,7 +2,7 @@
 #set -euo pipefail
 chmod -R 765 ./*.sh
 
-services=("prometheus" "kube-state-metrics" "grafana" "eliot")
+services=("prometheus" "kube-state-metrics" "grafana" "eliot" "node-exporter")
 
 if [[ $# -eq 0 ]]; then
   echo "Try setup.sh -h"
@@ -52,7 +52,7 @@ while [[ "$1" =~ ^- && ! "$1" == "--" ]]; do case $1 in
   -h|--help|*)
     echo "Services are automatically deployed when creating a cluster"
     echo
-    echo "-k|--kind kind               Create a kind cluster"
+    echo "-k|--kind                    Create a kind cluster"
     echo "-a|--admin                   Deploy a k8s cluster using kubeadm"
     echo '-s|--services A || "A B C"   Deploy a single service A or a list of services "A B C"'
     echo "-d|--default-services        Deploy default services"
