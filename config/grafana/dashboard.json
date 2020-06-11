@@ -15,7 +15,7 @@
   "gnetId": 893,
   "graphTooltip": 1,
   "id": 1,
-  "iteration": 1591524034729,
+  "iteration": 1591887428619,
   "links": [],
   "panels": [{
       "cacheTimeout": null,
@@ -337,7 +337,7 @@
         "lineColor": "rgb(31, 120, 193)",
         "show": false
       },
-      "tableColumn": "{app=\"prometheus-node-exporter\", app_kubernetes_io_managed_by=\"Helm\", chart=\"prometheus-node-exporter-1.9.1\", heritage=\"Helm\", instance=\"172.17.0.2:9100\", job=\"kubernetes-service-endpoints\", kubernetes_name=\"prometheus-node-exporter-1591523873\", kubernetes_namespace=\"monitoring\", release=\"prometheus-node-exporter-1591523873\"}",
+      "tableColumn": "{app=\"prometheus-node-exporter\", app_kubernetes_io_managed_by=\"Helm\", chart=\"prometheus-node-exporter-1.9.1\", heritage=\"Helm\", instance=\"172.17.0.2:9100\", job=\"kubernetes-service-endpoints\", kubernetes_name=\"prometheus-node-exporter-1591887167\", kubernetes_namespace=\"monitoring\", release=\"prometheus-node-exporter-1591887167\"}",
       "targets": [{
         "expr": "((node_memory_MemTotal_bytes - node_memory_MemAvailable_bytes) / node_memory_MemTotal_bytes) * 100",
         "interval": "",
@@ -421,7 +421,7 @@
         "lineColor": "rgb(31, 120, 193)",
         "show": false
       },
-      "tableColumn": "{app=\"prometheus-node-exporter\", app_kubernetes_io_managed_by=\"Helm\", chart=\"prometheus-node-exporter-1.9.1\", heritage=\"Helm\", instance=\"172.17.0.2:9100\", job=\"kubernetes-service-endpoints\", kubernetes_name=\"prometheus-node-exporter-1591523873\", kubernetes_namespace=\"monitoring\", release=\"prometheus-node-exporter-1591523873\"}",
+      "tableColumn": "{app=\"prometheus-node-exporter\", app_kubernetes_io_managed_by=\"Helm\", chart=\"prometheus-node-exporter-1.9.1\", heritage=\"Helm\", instance=\"172.17.0.2:9100\", job=\"kubernetes-service-endpoints\", kubernetes_name=\"prometheus-node-exporter-1591887167\", kubernetes_namespace=\"monitoring\", release=\"prometheus-node-exporter-1591887167\"}",
       "targets": [{
         "expr": "(node_memory_SwapTotal_bytes{kubernetes_namespace=\"monitoring\"} - node_memory_SwapFree_bytes{kubernetes_namespace=\"monitoring\"})",
         "interval": "",
@@ -2793,7 +2793,7 @@
       }],
       "timeFrom": null,
       "timeShift": null,
-      "title": "Panel Title",
+      "title": "Container startup time",
       "tooltip": {
         "show": true,
         "showHistogram": false
@@ -2916,12 +2916,10 @@
       {
         "allValue": null,
         "current": {
-          "selected": true,
-          "tags": [],
-          "text": "172.17.0.2",
-          "value": [
-            "172.17.0.2"
-          ]
+          "isNone": true,
+          "selected": false,
+          "text": "None",
+          "value": ""
         },
         "datasource": "Prometheus",
         "definition": "label_values(node_boot_time_seconds, instance)",
@@ -2945,8 +2943,8 @@
     ]
   },
   "time": {
-    "from": "2020-06-07T10:09:57.657Z",
-    "to": "2020-06-07T10:12:06.591Z"
+    "from": "now-5m",
+    "to": "now"
   },
   "timepicker": {
     "refresh_intervals": [
@@ -2975,5 +2973,5 @@
   "timezone": "browser",
   "title": "Docker and system monitoring",
   "uid": "asyPGwgMz",
-  "version": 1
+  "version": 2
 }
