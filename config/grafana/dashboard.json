@@ -15,7 +15,7 @@
   "gnetId": 893,
   "graphTooltip": 1,
   "id": 1,
-  "iteration": 1591526980891,
+  "iteration": 1591524034729,
   "links": [],
   "panels": [{
       "cacheTimeout": null,
@@ -28,6 +28,7 @@
       ],
       "datasource": "Prometheus",
       "decimals": 0,
+      "description": "Time since the first k8s service started (usually kubernetes-apiservers)",
       "editable": true,
       "error": false,
       "fieldConfig": {
@@ -82,9 +83,9 @@
         "lineColor": "rgb(31, 120, 193)",
         "show": false
       },
-      "tableColumn": "{instance=\"node-exporter:9100\", job=\"node-exporter\"}",
+      "tableColumn": "",
       "targets": [{
-        "expr": "time() - node_boot_time_seconds{namespace=\"eliot\"}",
+        "expr": "time() - min(process_start_time_seconds)",
         "hide": false,
         "interval": "",
         "intervalFactor": 2,
@@ -282,6 +283,7 @@
       ],
       "datasource": "Prometheus",
       "decimals": 0,
+      "description": "",
       "editable": true,
       "error": false,
       "fieldConfig": {
@@ -1580,7 +1582,7 @@
       "stack": false,
       "steppedLine": false,
       "targets": [{
-          "expr": "sum(rate(container_network_receive_bytes_total{namespace!=\"eliot\"}[$interval])) by (pod)",
+          "expr": "label_replace(sum(rate(container_network_receive_bytes_total{namespace!=\"eliot\"}[30s])) by (pod),\"pod\", \"other\",\"pod\",\"\")",
           "interval": "",
           "intervalFactor": 2,
           "legendFormat": "{{name}}",
@@ -1791,7 +1793,7 @@
       "stack": true,
       "steppedLine": false,
       "targets": [{
-        "expr": "sum(rate(container_cpu_usage_seconds_total{namespace!=\"eliot\"}[$interval])) by (pod) * 100",
+        "expr": "label_replace(sum(rate(container_cpu_usage_seconds_total{namespace!=\"eliot\"}[$interval])) by (pod) * 100, \"pod\", \"other\",\"pod\",\"\")",
         "hide": false,
         "interval": "",
         "intervalFactor": 2,
@@ -2002,7 +2004,7 @@
       "stack": true,
       "steppedLine": false,
       "targets": [{
-          "expr": "sum(container_memory_rss{namespace!=\"eliot\"}) by (pod)",
+          "expr": "label_replace(sum(container_memory_rss{namespace!=\"eliot\"}) by (pod),\"pod\", \"other\",\"pod\",\"\")",
           "hide": false,
           "interval": "",
           "intervalFactor": 2,
@@ -2225,7 +2227,7 @@
       "stack": false,
       "steppedLine": false,
       "targets": [{
-          "expr": "sum(rate(container_network_transmit_bytes_total{namespace!=\"eliot\"}[$interval])) by (pod)",
+          "expr": "label_replace(sum(rate(container_network_transmit_bytes_total{namespace!=\"eliot\"}[$interval])) by (pod),\"pod\", \"other\",\"pod\",\"\")",
           "interval": "",
           "intervalFactor": 2,
           "legendFormat": "{{name}}",
@@ -2444,7 +2446,7 @@
       "stack": true,
       "steppedLine": false,
       "targets": [{
-          "expr": "sum(container_memory_swap{namespace!=\"eliot\"}) by (pod)",
+          "expr": "label_replace(sum(container_memory_swap{namespace!=\"eliot\"}) by (pod),\"pod\", \"other\",\"pod\",\"\")",
           "hide": false,
           "interval": "",
           "intervalFactor": 2,
@@ -2816,7 +2818,7 @@
       "yBucketSize": null
     }
   ],
-  "refresh": "5s",
+  "refresh": false,
   "schemaVersion": 25,
   "style": "dark",
   "tags": [],
@@ -2914,9 +2916,12 @@
       {
         "allValue": null,
         "current": {
-          "selected": false,
+          "selected": true,
+          "tags": [],
           "text": "172.17.0.2",
-          "value": "172.17.0.2"
+          "value": [
+            "172.17.0.2"
+          ]
         },
         "datasource": "Prometheus",
         "definition": "label_values(node_boot_time_seconds, instance)",
@@ -2940,8 +2945,8 @@
     ]
   },
   "time": {
-    "from": "now-5m",
-    "to": "now"
+    "from": "2020-06-07T10:09:57.657Z",
+    "to": "2020-06-07T10:12:06.591Z"
   },
   "timepicker": {
     "refresh_intervals": [
