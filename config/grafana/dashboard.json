@@ -1,23 +1,26 @@
 {
   "annotations": {
-    "list": [{
-      "builtIn": 1,
-      "datasource": "-- Grafana --",
-      "enable": true,
-      "hide": true,
-      "iconColor": "rgba(0, 211, 255, 1)",
-      "name": "Annotations & Alerts",
-      "type": "dashboard"
-    }]
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": "-- Grafana --",
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "type": "dashboard"
+      }
+    ]
   },
   "description": "A simple overview of the most important Docker host and container metrics. (cAdvisor/Prometheus)",
   "editable": true,
   "gnetId": 893,
   "graphTooltip": 1,
   "id": 1,
-  "iteration": 1591887428619,
+  "iteration": 1592493545511,
   "links": [],
-  "panels": [{
+  "panels": [
+    {
       "cacheTimeout": null,
       "colorBackground": false,
       "colorValue": false,
@@ -56,7 +59,8 @@
       "interval": null,
       "links": [],
       "mappingType": 1,
-      "mappingTypes": [{
+      "mappingTypes": [
+        {
           "name": "value to text",
           "value": 1
         },
@@ -72,11 +76,13 @@
       "postfixFontSize": "30%",
       "prefix": "",
       "prefixFontSize": "20%",
-      "rangeMaps": [{
-        "from": "null",
-        "text": "N/A",
-        "to": "null"
-      }],
+      "rangeMaps": [
+        {
+          "from": "null",
+          "text": "N/A",
+          "to": "null"
+        }
+      ],
       "sparkline": {
         "fillColor": "rgba(31, 118, 189, 0.18)",
         "full": false,
@@ -84,24 +90,28 @@
         "show": false
       },
       "tableColumn": "",
-      "targets": [{
-        "expr": "time() - min(process_start_time_seconds)",
-        "hide": false,
-        "interval": "",
-        "intervalFactor": 2,
-        "legendFormat": "",
-        "refId": "A",
-        "step": 1800
-      }],
+      "targets": [
+        {
+          "expr": "time() - min(process_start_time_seconds)",
+          "hide": false,
+          "interval": "",
+          "intervalFactor": 2,
+          "legendFormat": "",
+          "refId": "A",
+          "step": 1800
+        }
+      ],
       "thresholds": "",
       "title": "Uptime",
       "type": "singlestat",
       "valueFontSize": "80%",
-      "valueMaps": [{
-        "op": "=",
-        "text": "N/A",
-        "value": "null"
-      }],
+      "valueMaps": [
+        {
+          "op": "=",
+          "text": "N/A",
+          "value": "null"
+        }
+      ],
       "valueName": "current"
     },
     {
@@ -114,6 +124,102 @@
         "rgba(50, 172, 45, 0.97)"
       ],
       "datasource": "Prometheus",
+      "decimals": 0,
+      "description": "Time from the first ELIoT pod created to the last ELIoT pod started.",
+      "editable": true,
+      "error": false,
+      "fieldConfig": {
+        "defaults": {
+          "custom": {}
+        },
+        "overrides": []
+      },
+      "format": "s",
+      "gauge": {
+        "maxValue": 100,
+        "minValue": 0,
+        "show": false,
+        "thresholdLabels": false,
+        "thresholdMarkers": true
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 4,
+        "y": 0
+      },
+      "height": "",
+      "id": 52,
+      "interval": null,
+      "links": [],
+      "mappingType": 1,
+      "mappingTypes": [
+        {
+          "name": "value to text",
+          "value": 1
+        },
+        {
+          "name": "range to text",
+          "value": 2
+        }
+      ],
+      "maxDataPoints": 100,
+      "nullPointMode": "connected",
+      "nullText": null,
+      "postfix": "",
+      "postfixFontSize": "30%",
+      "prefix": "",
+      "prefixFontSize": "20%",
+      "rangeMaps": [
+        {
+          "from": "null",
+          "text": "N/A",
+          "to": "null"
+        }
+      ],
+      "sparkline": {
+        "fillColor": "rgba(31, 118, 189, 0.18)",
+        "full": false,
+        "lineColor": "rgb(31, 120, 193)",
+        "show": false
+      },
+      "tableColumn": "",
+      "targets": [
+        {
+          "expr": "- min(kube_pod_created{namespace=\"eliot\"}) + max(kube_pod_start_time{namespace=\"eliot\"})",
+          "hide": false,
+          "interval": "",
+          "intervalFactor": 2,
+          "legendFormat": "",
+          "refId": "A",
+          "step": 1800
+        }
+      ],
+      "thresholds": "",
+      "title": "Activation time",
+      "type": "singlestat",
+      "valueFontSize": "80%",
+      "valueMaps": [
+        {
+          "op": "=",
+          "text": "N/A",
+          "value": "null"
+        }
+      ],
+      "valueName": "current"
+    },
+    {
+      "cacheTimeout": null,
+      "colorBackground": false,
+      "colorValue": false,
+      "colors": [
+        "rgba(245, 54, 54, 0.9)",
+        "rgba(237, 129, 40, 0.89)",
+        "rgba(50, 172, 45, 0.97)"
+      ],
+      "datasource": "Prometheus",
+      "decimals": 0,
+      "description": "Count all the running containers.",
       "editable": true,
       "error": false,
       "fieldConfig": {
@@ -133,14 +239,114 @@
       "gridPos": {
         "h": 4,
         "w": 4,
-        "x": 4,
+        "x": 8,
+        "y": 0
+      },
+      "height": "",
+      "id": 49,
+      "interval": null,
+      "links": [],
+      "mappingType": 1,
+      "mappingTypes": [
+        {
+          "name": "value to text",
+          "value": 1
+        },
+        {
+          "name": "range to text",
+          "value": 2
+        }
+      ],
+      "maxDataPoints": 100,
+      "nullPointMode": "connected",
+      "nullText": null,
+      "postfix": "",
+      "postfixFontSize": "30%",
+      "prefix": "",
+      "prefixFontSize": "20%",
+      "rangeMaps": [
+        {
+          "from": "null",
+          "text": "N/A",
+          "to": "null"
+        }
+      ],
+      "sparkline": {
+        "fillColor": "rgba(31, 118, 189, 0.18)",
+        "full": false,
+        "lineColor": "rgb(31, 120, 193)",
+        "show": false
+      },
+      "tableColumn": "",
+      "targets": [
+        {
+          "expr": "sum(kube_pod_info{namespace!=\"eliot\"})",
+          "hide": true,
+          "interval": "",
+          "intervalFactor": 2,
+          "legendFormat": "",
+          "refId": "A",
+          "step": 1800
+        },
+        {
+          "expr": "sum(kube_pod_info)",
+          "interval": "",
+          "legendFormat": "",
+          "refId": "B"
+        }
+      ],
+      "thresholds": "",
+      "title": "Running Containers",
+      "type": "singlestat",
+      "valueFontSize": "80%",
+      "valueMaps": [
+        {
+          "op": "=",
+          "text": "N/A",
+          "value": "null"
+        }
+      ],
+      "valueName": "current"
+    },
+    {
+      "cacheTimeout": null,
+      "colorBackground": false,
+      "colorValue": false,
+      "colors": [
+        "rgba(245, 54, 54, 0.9)",
+        "rgba(237, 129, 40, 0.89)",
+        "rgba(50, 172, 45, 0.97)"
+      ],
+      "datasource": "Prometheus",
+      "description": "Count the Eliot containers currently activated.",
+      "editable": true,
+      "error": false,
+      "fieldConfig": {
+        "defaults": {
+          "custom": {}
+        },
+        "overrides": []
+      },
+      "format": "none",
+      "gauge": {
+        "maxValue": 100,
+        "minValue": 0,
+        "show": false,
+        "thresholdLabels": false,
+        "thresholdMarkers": true
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 12,
         "y": 0
       },
       "id": 31,
       "interval": null,
       "links": [],
       "mappingType": 1,
-      "mappingTypes": [{
+      "mappingTypes": [
+        {
           "name": "value to text",
           "value": 1
         },
@@ -156,11 +362,13 @@
       "postfixFontSize": "50%",
       "prefix": "",
       "prefixFontSize": "50%",
-      "rangeMaps": [{
-        "from": "null",
-        "text": "N/A",
-        "to": "null"
-      }],
+      "rangeMaps": [
+        {
+          "from": "null",
+          "text": "N/A",
+          "to": "null"
+        }
+      ],
       "sparkline": {
         "fillColor": "rgba(31, 118, 189, 0.18)",
         "full": false,
@@ -168,23 +376,42 @@
         "show": false
       },
       "tableColumn": "",
-      "targets": [{
-        "expr": "count(rate(container_last_seen{namespace=\"eliot\"}[$interval]))",
-        "interval": "",
-        "intervalFactor": 2,
-        "legendFormat": "",
-        "refId": "A",
-        "step": 1800
-      }],
+      "targets": [
+        {
+          "expr": "count(rate(container_last_seen{namespace=\"eliot\"}[$interval]))",
+          "hide": true,
+          "interval": "",
+          "intervalFactor": 2,
+          "legendFormat": "",
+          "refId": "A",
+          "step": 1800
+        },
+        {
+          "expr": "sum(kube_pod_info{namespace=\"eliot\"})",
+          "hide": false,
+          "interval": "",
+          "legendFormat": "",
+          "refId": "B"
+        },
+        {
+          "expr": "sum(kube_pod_info)",
+          "hide": true,
+          "interval": "",
+          "legendFormat": "",
+          "refId": "C"
+        }
+      ],
       "thresholds": "",
-      "title": "Containers",
+      "title": "Eliot Containers",
       "type": "singlestat",
       "valueFontSize": "120%",
-      "valueMaps": [{
-        "op": "=",
-        "text": "N/A",
-        "value": "null"
-      }],
+      "valueMaps": [
+        {
+          "op": "=",
+          "text": "N/A",
+          "value": "null"
+        }
+      ],
       "valueName": "current"
     },
     {
@@ -198,6 +425,7 @@
       ],
       "datasource": "Prometheus",
       "decimals": 1,
+      "description": "Disk space occupied by containers",
       "editable": true,
       "error": false,
       "fieldConfig": {
@@ -217,14 +445,15 @@
       "gridPos": {
         "h": 4,
         "w": 4,
-        "x": 8,
+        "x": 16,
         "y": 0
       },
       "id": 26,
       "interval": null,
       "links": [],
       "mappingType": 1,
-      "mappingTypes": [{
+      "mappingTypes": [
+        {
           "name": "value to text",
           "value": 1
         },
@@ -240,11 +469,13 @@
       "postfixFontSize": "50%",
       "prefix": "",
       "prefixFontSize": "50%",
-      "rangeMaps": [{
-        "from": "null",
-        "text": "N/A",
-        "to": "null"
-      }],
+      "rangeMaps": [
+        {
+          "from": "null",
+          "text": "N/A",
+          "to": "null"
+        }
+      ],
       "sparkline": {
         "fillColor": "rgba(31, 118, 189, 0.18)",
         "full": false,
@@ -252,24 +483,28 @@
         "show": false
       },
       "tableColumn": "",
-      "targets": [{
-        "expr": "min((node_filesystem_size_bytes{kubernetes_namespace=\"monitoring\"} - node_filesystem_avail_bytes{kubernetes_namespace=\"monitoring\"} )/ node_filesystem_size_bytes{kubernetes_namespace=\"monitoring\"})",
-        "hide": false,
-        "interval": "",
-        "intervalFactor": 2,
-        "legendFormat": "",
-        "refId": "A",
-        "step": 1800
-      }],
+      "targets": [
+        {
+          "expr": "min((node_filesystem_size_bytes{kubernetes_namespace=\"monitoring\"} - node_filesystem_avail_bytes{kubernetes_namespace=\"monitoring\"} )/ node_filesystem_size_bytes{kubernetes_namespace=\"monitoring\"})",
+          "hide": false,
+          "interval": "",
+          "intervalFactor": 2,
+          "legendFormat": "",
+          "refId": "A",
+          "step": 1800
+        }
+      ],
       "thresholds": "0.75, 0.90",
       "title": "Disk space",
       "type": "singlestat",
       "valueFontSize": "80%",
-      "valueMaps": [{
-        "op": "=",
-        "text": "N/A",
-        "value": "null"
-      }],
+      "valueMaps": [
+        {
+          "op": "=",
+          "text": "N/A",
+          "value": "null"
+        }
+      ],
       "valueName": "current"
     },
     {
@@ -283,7 +518,7 @@
       ],
       "datasource": "Prometheus",
       "decimals": 0,
-      "description": "",
+      "description": "Percentage of memory occupied by all running processes",
       "editable": true,
       "error": false,
       "fieldConfig": {
@@ -303,14 +538,15 @@
       "gridPos": {
         "h": 4,
         "w": 4,
-        "x": 12,
+        "x": 20,
         "y": 0
       },
       "id": 25,
       "interval": null,
       "links": [],
       "mappingType": 1,
-      "mappingTypes": [{
+      "mappingTypes": [
+        {
           "name": "value to text",
           "value": 1
         },
@@ -326,132 +562,51 @@
       "postfixFontSize": "50%",
       "prefix": "",
       "prefixFontSize": "50%",
-      "rangeMaps": [{
-        "from": "null",
-        "text": "N/A",
-        "to": "null"
-      }],
+      "rangeMaps": [
+        {
+          "from": "null",
+          "text": "N/A",
+          "to": "null"
+        }
+      ],
       "sparkline": {
         "fillColor": "rgba(31, 118, 189, 0.18)",
         "full": false,
         "lineColor": "rgb(31, 120, 193)",
         "show": false
       },
-      "tableColumn": "{app=\"prometheus-node-exporter\", app_kubernetes_io_managed_by=\"Helm\", chart=\"prometheus-node-exporter-1.9.1\", heritage=\"Helm\", instance=\"172.17.0.2:9100\", job=\"kubernetes-service-endpoints\", kubernetes_name=\"prometheus-node-exporter-1591887167\", kubernetes_namespace=\"monitoring\", release=\"prometheus-node-exporter-1591887167\"}",
-      "targets": [{
-        "expr": "((node_memory_MemTotal_bytes - node_memory_MemAvailable_bytes) / node_memory_MemTotal_bytes) * 100",
-        "interval": "",
-        "intervalFactor": 2,
-        "legendFormat": "",
-        "refId": "A",
-        "step": 1800
-      }],
+      "tableColumn": "{app=\"prometheus-node-exporter\", app_kubernetes_io_managed_by=\"Helm\", chart=\"prometheus-node-exporter-1.9.1\", heritage=\"Helm\", instance=\"172.19.0.2:9100\", job=\"kubernetes-service-endpoints\", kubernetes_name=\"prometheus-node-exporter-1592489621\", kubernetes_namespace=\"monitoring\", release=\"prometheus-node-exporter-1592489621\"}",
+      "targets": [
+        {
+          "expr": "((node_memory_MemTotal_bytes - node_memory_MemAvailable_bytes) / node_memory_MemTotal_bytes) * 100",
+          "interval": "",
+          "intervalFactor": 2,
+          "legendFormat": "",
+          "refId": "A",
+          "step": 1800
+        }
+      ],
       "thresholds": "70, 90",
       "title": "Memory",
       "type": "singlestat",
       "valueFontSize": "80%",
-      "valueMaps": [{
-        "op": "=",
-        "text": "N/A",
-        "value": "null"
-      }],
-      "valueName": "current"
-    },
-    {
-      "cacheTimeout": null,
-      "colorBackground": false,
-      "colorValue": false,
-      "colors": [
-        "rgba(50, 172, 45, 0.97)",
-        "rgba(237, 129, 40, 0.89)",
-        "rgba(245, 54, 54, 0.9)"
-      ],
-      "datasource": "Prometheus",
-      "decimals": 0,
-      "editable": true,
-      "error": false,
-      "fieldConfig": {
-        "defaults": {
-          "custom": {}
-        },
-        "overrides": []
-      },
-      "format": "decbytes",
-      "gauge": {
-        "maxValue": 500000000,
-        "minValue": 0,
-        "show": true,
-        "thresholdLabels": false,
-        "thresholdMarkers": true
-      },
-      "gridPos": {
-        "h": 4,
-        "w": 4,
-        "x": 16,
-        "y": 0
-      },
-      "id": 30,
-      "interval": null,
-      "links": [],
-      "mappingType": 1,
-      "mappingTypes": [{
-          "name": "value to text",
-          "value": 1
-        },
+      "valueMaps": [
         {
-          "name": "range to text",
-          "value": 2
+          "op": "=",
+          "text": "N/A",
+          "value": "null"
         }
       ],
-      "maxDataPoints": 100,
-      "nullPointMode": "connected",
-      "nullText": null,
-      "postfix": "",
-      "postfixFontSize": "50%",
-      "prefix": "",
-      "prefixFontSize": "50%",
-      "rangeMaps": [{
-        "from": "null",
-        "text": "N/A",
-        "to": "null"
-      }],
-      "sparkline": {
-        "fillColor": "rgba(31, 118, 189, 0.18)",
-        "full": false,
-        "lineColor": "rgb(31, 120, 193)",
-        "show": false
-      },
-      "tableColumn": "{app=\"prometheus-node-exporter\", app_kubernetes_io_managed_by=\"Helm\", chart=\"prometheus-node-exporter-1.9.1\", heritage=\"Helm\", instance=\"172.17.0.2:9100\", job=\"kubernetes-service-endpoints\", kubernetes_name=\"prometheus-node-exporter-1591887167\", kubernetes_namespace=\"monitoring\", release=\"prometheus-node-exporter-1591887167\"}",
-      "targets": [{
-        "expr": "(node_memory_SwapTotal_bytes{kubernetes_namespace=\"monitoring\"} - node_memory_SwapFree_bytes{kubernetes_namespace=\"monitoring\"})",
-        "interval": "",
-        "intervalFactor": 2,
-        "legendFormat": "",
-        "refId": "A",
-        "step": 1800
-      }],
-      "thresholds": "400000000",
-      "title": "Swap",
-      "type": "singlestat",
-      "valueFontSize": "80%",
-      "valueMaps": [{
-        "op": "=",
-        "text": "N/A",
-        "value": "null"
-      }],
       "valueName": "current"
     },
     {
-      "cacheTimeout": null,
-      "colorBackground": false,
-      "colorValue": false,
-      "colors": [
-        "rgba(245, 54, 54, 0.9)",
-        "rgba(237, 129, 40, 0.89)",
-        "rgba(50, 172, 45, 0.97)"
-      ],
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
       "datasource": "Prometheus",
       "decimals": 0,
+      "description": "System load calculated every 1 second.",
       "editable": true,
       "error": false,
       "fieldConfig": {
@@ -460,70 +615,98 @@
         },
         "overrides": []
       },
-      "format": "percentunit",
-      "gauge": {
-        "maxValue": 100,
-        "minValue": 0,
+      "fill": 1,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 6,
+        "w": 12,
+        "x": 0,
+        "y": 4
+      },
+      "hiddenSeries": false,
+      "id": 28,
+      "legend": {
+        "avg": false,
+        "current": false,
+        "max": false,
+        "min": false,
         "show": false,
-        "thresholdLabels": false,
-        "thresholdMarkers": true
+        "total": false,
+        "values": false
       },
-      "gridPos": {
-        "h": 4,
-        "w": 4,
-        "x": 20,
-        "y": 0
-      },
-      "id": 27,
-      "interval": null,
+      "lines": true,
+      "linewidth": 1,
       "links": [],
-      "mappingType": 1,
-      "mappingTypes": [{
-          "name": "value to text",
-          "value": 1
+      "nullPointMode": "connected",
+      "options": {
+        "dataLinks": []
+      },
+      "percentage": false,
+      "pointradius": 5,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "expr": "node_load1{instance=~\"$server:.*\"} / count by(job, instance)(count by(job, instance, cpu)(node_cpu_seconds_total{instance=~\"$server:.*\"}))",
+          "hide": true,
+          "interval": "",
+          "intervalFactor": 2,
+          "legendFormat": "",
+          "refId": "A",
+          "step": 600
         },
         {
-          "name": "range to text",
-          "value": 2
+          "expr": "node_load1",
+          "interval": "",
+          "legendFormat": "",
+          "refId": "B"
         }
       ],
-      "maxDataPoints": 100,
-      "nullPointMode": "connected",
-      "nullText": null,
-      "postfix": "",
-      "postfixFontSize": "50%",
-      "prefix": "",
-      "prefixFontSize": "50%",
-      "rangeMaps": [{
-        "from": "null",
-        "text": "N/A",
-        "to": "null"
-      }],
-      "sparkline": {
-        "fillColor": "rgba(50, 189, 31, 0.18)",
-        "full": false,
-        "lineColor": "rgb(69, 193, 31)",
-        "show": true
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "System Load",
+      "tooltip": {
+        "msResolution": false,
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
       },
-      "tableColumn": "{instance=\"node-exporter:9100\", job=\"node-exporter\"}",
-      "targets": [{
-        "expr": "node_load1{kubernetes_namespace=\"monitoring\"} / count by(job, instance)(count by(job, instance, cpu)(node_cpu_seconds_total{kubernetes_namespace=\"monitoring\"}))",
-        "interval": "",
-        "intervalFactor": 2,
-        "legendFormat": "",
-        "refId": "A",
-        "step": 1800
-      }],
-      "thresholds": "0.8,0.9",
-      "title": "Load",
-      "type": "singlestat",
-      "valueFontSize": "80%",
-      "valueMaps": [{
-        "op": "=",
-        "text": "N/A",
-        "value": "null"
-      }],
-      "valueName": "avg"
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": false,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "format": "none",
+          "label": null,
+          "logBase": 1,
+          "max": "20",
+          "min": null,
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": false
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
     },
     {
       "aliasColors": {
@@ -533,6 +716,7 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": "Prometheus",
+      "description": "Throughput of ELIoT client",
       "editable": true,
       "error": false,
       "fieldConfig": {
@@ -546,8 +730,8 @@
       "grid": {},
       "gridPos": {
         "h": 6,
-        "w": 4,
-        "x": 0,
+        "w": 12,
+        "x": 12,
         "y": 4
       },
       "hiddenSeries": false,
@@ -576,27 +760,19 @@
       "spaceLength": 10,
       "stack": false,
       "steppedLine": false,
-      "targets": [{
-          "expr": "sum(rate(container_network_receive_bytes_total{id=\"/\"}[$interval])) by (id)",
-          "intervalFactor": 2,
-          "legendFormat": "RECEIVED",
-          "refId": "A",
-          "step": 600
-        },
+      "targets": [
         {
-          "expr": "- sum(rate(container_network_transmit_bytes_total{id=\"/\"}[$interval])) by (id)",
-          "hide": false,
-          "intervalFactor": 2,
-          "legendFormat": "SENT",
-          "refId": "B",
-          "step": 600
+          "expr": "sum(container_network_transmit_bytes_total{namespace=\"eliot\",pod!~\"eliot-server-.*\",pod!~\"eliot-bootstrap-server-.*\"})/15",
+          "interval": "",
+          "legendFormat": "",
+          "refId": "A"
         }
       ],
       "thresholds": [],
       "timeFrom": null,
       "timeRegions": [],
       "timeShift": null,
-      "title": "Network Traffic",
+      "title": "Throughput",
       "tooltip": {
         "msResolution": true,
         "shared": true,
@@ -611,7 +787,8 @@
         "show": false,
         "values": []
       },
-      "yaxes": [{
+      "yaxes": [
+        {
           "format": "bytes",
           "label": null,
           "logBase": 1,
@@ -641,6 +818,7 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": "Prometheus",
+      "description": "CPU usage from ELIoT containers.",
       "editable": true,
       "error": false,
       "fieldConfig": {
@@ -654,9 +832,9 @@
       "grid": {},
       "gridPos": {
         "h": 6,
-        "w": 4,
-        "x": 4,
-        "y": 4
+        "w": 12,
+        "x": 0,
+        "y": 10
       },
       "hiddenSeries": false,
       "id": 5,
@@ -684,7 +862,8 @@
       "spaceLength": 10,
       "stack": true,
       "steppedLine": false,
-      "targets": [{
+      "targets": [
+        {
           "expr": "sum(rate(container_cpu_system_seconds_total[1m]))",
           "hide": true,
           "intervalFactor": 2,
@@ -749,8 +928,9 @@
         "show": false,
         "values": []
       },
-      "yaxes": [{
-          "format": "percent",
+      "yaxes": [
+        {
+          "format": "s",
           "label": "",
           "logBase": 1,
           "max": null,
@@ -772,42 +952,14 @@
       }
     },
     {
-      "alert": {
-        "conditions": [{
-          "evaluator": {
-            "params": [
-              1.25
-            ],
-            "type": "gt"
-          },
-          "query": {
-            "params": [
-              "A",
-              "5m",
-              "now"
-            ]
-          },
-          "reducer": {
-            "params": [],
-            "type": "avg"
-          },
-          "type": "query"
-        }],
-        "executionErrorState": "alerting",
-        "frequency": "60s",
-        "handler": 1,
-        "name": "Panel Title alert",
-        "noDataState": "keep_state",
-        "notifications": [{
-          "id": 1
-        }]
+      "aliasColors": {
+        "{id=\"/\",instance=\"cadvisor:8080\",job=\"prometheus\"}": "#BA43A9"
       },
-      "aliasColors": {},
       "bars": false,
       "dashLength": 10,
       "dashes": false,
       "datasource": "Prometheus",
-      "decimals": 0,
+      "description": "CPU usage from containers different than ELIoT containers.",
       "editable": true,
       "error": false,
       "fieldConfig": {
@@ -818,14 +970,15 @@
       },
       "fill": 1,
       "fillGradient": 0,
+      "grid": {},
       "gridPos": {
         "h": 6,
-        "w": 4,
-        "x": 8,
-        "y": 4
+        "w": 12,
+        "x": 12,
+        "y": 10
       },
       "hiddenSeries": false,
-      "id": 28,
+      "id": 50,
       "legend": {
         "avg": false,
         "current": false,
@@ -838,7 +991,7 @@
       "lines": true,
       "linewidth": 1,
       "links": [],
-      "nullPointMode": "connected",
+      "nullPointMode": "null as zero",
       "options": {
         "dataLinks": []
       },
@@ -848,32 +1001,29 @@
       "renderer": "flot",
       "seriesOverrides": [],
       "spaceLength": 10,
-      "stack": false,
+      "stack": true,
       "steppedLine": false,
-      "targets": [{
-        "expr": "node_load1{instance=~\"$server:.*\"} / count by(job, instance)(count by(job, instance, cpu)(node_cpu_seconds_total{instance=~\"$server:.*\"}))",
-        "interval": "",
-        "intervalFactor": 2,
-        "legendFormat": "",
-        "refId": "A",
-        "step": 600
-      }],
-      "thresholds": [{
-        "colorMode": "critical",
-        "fill": true,
-        "line": true,
-        "op": "gt",
-        "value": 1.25
-      }],
+      "targets": [
+        {
+          "expr": "sum(rate(container_cpu_system_seconds_total{namespace!=\"eliot\"}[$interval]))",
+          "hide": false,
+          "interval": "",
+          "intervalFactor": 2,
+          "legendFormat": "nur container",
+          "refId": "F",
+          "step": 10
+        }
+      ],
+      "thresholds": [],
       "timeFrom": null,
       "timeRegions": [],
       "timeShift": null,
-      "title": "Load",
+      "title": "CPU Usage from other containers",
       "tooltip": {
-        "msResolution": false,
+        "msResolution": true,
         "shared": true,
         "sort": 0,
-        "value_type": "individual"
+        "value_type": "cumulative"
       },
       "type": "graph",
       "xaxis": {
@@ -883,11 +1033,12 @@
         "show": false,
         "values": []
       },
-      "yaxes": [{
-          "format": "percentunit",
-          "label": null,
+      "yaxes": [
+        {
+          "format": "s",
+          "label": "",
           "logBase": 1,
-          "max": "1.50",
+          "max": null,
           "min": null,
           "show": true
         },
@@ -906,36 +1057,6 @@
       }
     },
     {
-      "alert": {
-        "conditions": [{
-          "evaluator": {
-            "params": [
-              850000000000
-            ],
-            "type": "gt"
-          },
-          "query": {
-            "params": [
-              "A",
-              "5m",
-              "now"
-            ]
-          },
-          "reducer": {
-            "params": [],
-            "type": "avg"
-          },
-          "type": "query"
-        }],
-        "executionErrorState": "alerting",
-        "frequency": "60s",
-        "handler": 1,
-        "name": "Free/Used Disk Space alert",
-        "noDataState": "keep_state",
-        "notifications": [{
-          "id": 1
-        }]
-      },
       "aliasColors": {
         "Belegete Festplatte": "#BF1B00",
         "Free Disk Space": "#7EB26D",
@@ -959,9 +1080,9 @@
       "grid": {},
       "gridPos": {
         "h": 6,
-        "w": 4,
-        "x": 12,
-        "y": 4
+        "w": 8,
+        "x": 0,
+        "y": 16
       },
       "hiddenSeries": false,
       "id": 13,
@@ -985,28 +1106,27 @@
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
-      "seriesOverrides": [{
-        "alias": "Used Disk Space",
-        "yaxis": 1
-      }],
+      "seriesOverrides": [
+        {
+          "alias": "Used Disk Space",
+          "yaxis": 1
+        }
+      ],
       "spaceLength": 10,
       "stack": true,
       "steppedLine": false,
-      "targets": [{
-        "expr": "node_filesystem_size{fstype=\"aufs\"} - node_filesystem_free{fstype=\"aufs\"}",
-        "hide": false,
-        "intervalFactor": 2,
-        "legendFormat": "Used Disk Space",
-        "refId": "A",
-        "step": 600
-      }],
-      "thresholds": [{
-        "colorMode": "critical",
-        "fill": true,
-        "line": true,
-        "op": "gt",
-        "value": 850000000000
-      }],
+      "targets": [
+        {
+          "expr": "max(node_filesystem_size_bytes{kubernetes_namespace=\"monitoring\"} - node_filesystem_avail_bytes{kubernetes_namespace=\"monitoring\"})",
+          "hide": false,
+          "interval": "",
+          "intervalFactor": 2,
+          "legendFormat": "Used Disk Space",
+          "refId": "A",
+          "step": 600
+        }
+      ],
+      "thresholds": [],
       "timeFrom": null,
       "timeRegions": [],
       "timeShift": null,
@@ -1025,7 +1145,8 @@
         "show": false,
         "values": []
       },
-      "yaxes": [{
+      "yaxes": [
+        {
           "format": "bytes",
           "label": "",
           "logBase": 1,
@@ -1048,36 +1169,127 @@
       }
     },
     {
-      "alert": {
-        "conditions": [{
-          "evaluator": {
-            "params": [
-              10000000000
-            ],
-            "type": "gt"
-          },
-          "query": {
-            "params": [
-              "A",
-              "5m",
-              "now"
-            ]
-          },
-          "reducer": {
-            "params": [],
-            "type": "avg"
-          },
-          "type": "query"
-        }],
-        "executionErrorState": "alerting",
-        "frequency": "60s",
-        "handler": 1,
-        "name": "Available Memory alert",
-        "noDataState": "keep_state",
-        "notifications": [{
-          "id": 1
-        }]
+      "aliasColors": {
+        "IN on /sda": "#7EB26D",
+        "OUT on /sda": "#890F02"
       },
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "Prometheus",
+      "editable": true,
+      "error": false,
+      "fieldConfig": {
+        "defaults": {
+          "custom": {}
+        },
+        "overrides": []
+      },
+      "fill": 1,
+      "fillGradient": 0,
+      "grid": {},
+      "gridPos": {
+        "h": 6,
+        "w": 8,
+        "x": 8,
+        "y": 16
+      },
+      "hiddenSeries": false,
+      "id": 3,
+      "legend": {
+        "avg": false,
+        "current": false,
+        "max": false,
+        "min": false,
+        "show": false,
+        "total": false,
+        "values": false
+      },
+      "lines": true,
+      "linewidth": 1,
+      "links": [],
+      "nullPointMode": "null as zero",
+      "options": {
+        "dataLinks": []
+      },
+      "percentage": false,
+      "pointradius": 5,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "expr": "-sum(rate(node_disk_bytes_read[$interval])) by (device)",
+          "hide": true,
+          "intervalFactor": 2,
+          "legendFormat": "OUT on /{{device}}",
+          "metric": "node_disk_bytes_read",
+          "refId": "A",
+          "step": 600
+        },
+        {
+          "expr": "sum(rate(node_disk_bytes_written[$interval])) by (device)",
+          "hide": true,
+          "intervalFactor": 2,
+          "legendFormat": "IN on /{{device}}",
+          "metric": "",
+          "refId": "B",
+          "step": 600
+        },
+        {
+          "expr": "node_disk_io_now[5m]",
+          "instant": true,
+          "interval": "",
+          "legendFormat": "Disk I/O",
+          "refId": "C"
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "Disk I/O",
+      "tooltip": {
+        "msResolution": true,
+        "shared": true,
+        "sort": 0,
+        "value_type": "cumulative"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": false,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "format": "Bps",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": false
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
       "aliasColors": {
         "Available Memory": "#7EB26D",
         "Unavailable Memory": "#7EB26D"
@@ -1099,9 +1311,9 @@
       "grid": {},
       "gridPos": {
         "h": 6,
-        "w": 4,
+        "w": 8,
         "x": 16,
-        "y": 4
+        "y": 16
       },
       "hiddenSeries": false,
       "id": 20,
@@ -1129,7 +1341,8 @@
       "spaceLength": 10,
       "stack": true,
       "steppedLine": false,
-      "targets": [{
+      "targets": [
+        {
           "expr": "container_memory_rss{name=~\".+\"}",
           "hide": true,
           "interval": "",
@@ -1256,19 +1469,20 @@
         {
           "expr": "node_memory_Inactive + node_memory_MemFree + node_memory_MemAvailable",
           "hide": true,
+          "interval": "",
           "intervalFactor": 2,
           "legendFormat": "",
           "refId": "P",
           "step": 40
+        },
+        {
+          "expr": "node_memory_MemAvailable_bytes",
+          "interval": "",
+          "legendFormat": "Available memory",
+          "refId": "Q"
         }
       ],
-      "thresholds": [{
-        "colorMode": "critical",
-        "fill": true,
-        "line": true,
-        "op": "gt",
-        "value": 10000000000
-      }],
+      "thresholds": [],
       "timeFrom": null,
       "timeRegions": [],
       "timeShift": null,
@@ -1287,123 +1501,13 @@
         "show": false,
         "values": []
       },
-      "yaxes": [{
+      "yaxes": [
+        {
           "format": "bytes",
           "label": "",
           "logBase": 1,
-          "max": 16000000000,
+          "max": "35000000000",
           "min": 0,
-          "show": true
-        },
-        {
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": false
-        }
-      ],
-      "yaxis": {
-        "align": false,
-        "alignLevel": null
-      }
-    },
-    {
-      "aliasColors": {
-        "IN on /sda": "#7EB26D",
-        "OUT on /sda": "#890F02"
-      },
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
-      "datasource": "Prometheus",
-      "editable": true,
-      "error": false,
-      "fieldConfig": {
-        "defaults": {
-          "custom": {}
-        },
-        "overrides": []
-      },
-      "fill": 1,
-      "fillGradient": 0,
-      "grid": {},
-      "gridPos": {
-        "h": 6,
-        "w": 4,
-        "x": 20,
-        "y": 4
-      },
-      "hiddenSeries": false,
-      "id": 3,
-      "legend": {
-        "avg": false,
-        "current": false,
-        "max": false,
-        "min": false,
-        "show": false,
-        "total": false,
-        "values": false
-      },
-      "lines": true,
-      "linewidth": 1,
-      "links": [],
-      "nullPointMode": "null as zero",
-      "options": {
-        "dataLinks": []
-      },
-      "percentage": false,
-      "pointradius": 5,
-      "points": false,
-      "renderer": "flot",
-      "seriesOverrides": [],
-      "spaceLength": 10,
-      "stack": false,
-      "steppedLine": false,
-      "targets": [{
-          "expr": "-sum(rate(node_disk_bytes_read[$interval])) by (device)",
-          "hide": false,
-          "intervalFactor": 2,
-          "legendFormat": "OUT on /{{device}}",
-          "metric": "node_disk_bytes_read",
-          "refId": "A",
-          "step": 600
-        },
-        {
-          "expr": "sum(rate(node_disk_bytes_written[$interval])) by (device)",
-          "intervalFactor": 2,
-          "legendFormat": "IN on /{{device}}",
-          "metric": "",
-          "refId": "B",
-          "step": 600
-        }
-      ],
-      "thresholds": [],
-      "timeFrom": null,
-      "timeRegions": [],
-      "timeShift": null,
-      "title": "Disk I/O",
-      "tooltip": {
-        "msResolution": true,
-        "shared": true,
-        "sort": 0,
-        "value_type": "cumulative"
-      },
-      "type": "graph",
-      "xaxis": {
-        "buckets": null,
-        "mode": "time",
-        "name": null,
-        "show": false,
-        "values": []
-      },
-      "yaxes": [{
-          "format": "Bps",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
           "show": true
         },
         {
@@ -1426,6 +1530,7 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": "Prometheus",
+      "description": "Network traffic that is received by ELIoT containers",
       "editable": true,
       "error": false,
       "fieldConfig": {
@@ -1441,7 +1546,7 @@
         "h": 7,
         "w": 12,
         "x": 0,
-        "y": 10
+        "y": 22
       },
       "hiddenSeries": false,
       "id": 8,
@@ -1471,7 +1576,8 @@
       "spaceLength": 10,
       "stack": false,
       "steppedLine": false,
-      "targets": [{
+      "targets": [
+        {
           "expr": "sum(rate(container_network_receive_bytes_total{namespace=\"eliot\"}[$interval])) by (pod)",
           "interval": "",
           "intervalFactor": 2,
@@ -1508,7 +1614,8 @@
         "show": true,
         "values": []
       },
-      "yaxes": [{
+      "yaxes": [
+        {
           "format": "Bps",
           "label": null,
           "logBase": 1,
@@ -1536,6 +1643,7 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": "Prometheus",
+      "description": "Network traffic that is received by other containers",
       "editable": true,
       "error": false,
       "fieldConfig": {
@@ -1551,7 +1659,7 @@
         "h": 7,
         "w": 12,
         "x": 12,
-        "y": 10
+        "y": 22
       },
       "hiddenSeries": false,
       "id": 44,
@@ -1581,7 +1689,8 @@
       "spaceLength": 10,
       "stack": false,
       "steppedLine": false,
-      "targets": [{
+      "targets": [
+        {
           "expr": "label_replace(sum(rate(container_network_receive_bytes_total{namespace!=\"eliot\"}[30s])) by (pod),\"pod\", \"other\",\"pod\",\"\")",
           "interval": "",
           "intervalFactor": 2,
@@ -1618,7 +1727,8 @@
         "show": true,
         "values": []
       },
-      "yaxes": [{
+      "yaxes": [
+        {
           "format": "Bps",
           "label": null,
           "logBase": 1,
@@ -1646,6 +1756,236 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": "Prometheus",
+      "description": "Network traffic that is sent by ELIoT containers",
+      "editable": true,
+      "error": false,
+      "fieldConfig": {
+        "defaults": {
+          "custom": {}
+        },
+        "overrides": []
+      },
+      "fill": 1,
+      "fillGradient": 0,
+      "grid": {},
+      "gridPos": {
+        "h": 7,
+        "w": 12,
+        "x": 0,
+        "y": 29
+      },
+      "hiddenSeries": false,
+      "id": 9,
+      "legend": {
+        "alignAsTable": true,
+        "avg": false,
+        "current": false,
+        "hideEmpty": false,
+        "hideZero": false,
+        "max": false,
+        "min": false,
+        "rightSide": true,
+        "show": true,
+        "total": false,
+        "values": false
+      },
+      "lines": true,
+      "linewidth": 2,
+      "links": [],
+      "nullPointMode": "null as zero",
+      "options": {
+        "dataLinks": []
+      },
+      "percentage": false,
+      "pointradius": 5,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "expr": "sum(rate(container_network_transmit_bytes_total{namespace=\"eliot\"}[$interval])) by (pod)",
+          "hide": false,
+          "interval": "",
+          "intervalFactor": 2,
+          "legendFormat": "{{name}}",
+          "refId": "A",
+          "step": 240
+        },
+        {
+          "expr": "rate(container_network_transmit_bytes_total{id=\"/\"}[$interval])",
+          "hide": true,
+          "intervalFactor": 2,
+          "legendFormat": "",
+          "refId": "B",
+          "step": 10
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "Sent Network Traffic per ELIot containers",
+      "tooltip": {
+        "msResolution": true,
+        "shared": true,
+        "sort": 0,
+        "value_type": "cumulative"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "format": "Bps",
+          "label": "",
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": "",
+          "logBase": 10,
+          "max": 8,
+          "min": 0,
+          "show": false
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "Prometheus",
+      "description": "Network traffic that is sent by other containers",
+      "editable": true,
+      "error": false,
+      "fieldConfig": {
+        "defaults": {
+          "custom": {}
+        },
+        "overrides": []
+      },
+      "fill": 1,
+      "fillGradient": 0,
+      "grid": {},
+      "gridPos": {
+        "h": 7,
+        "w": 12,
+        "x": 12,
+        "y": 29
+      },
+      "hiddenSeries": false,
+      "id": 42,
+      "legend": {
+        "alignAsTable": true,
+        "avg": false,
+        "current": false,
+        "hideEmpty": false,
+        "hideZero": false,
+        "max": false,
+        "min": false,
+        "rightSide": true,
+        "show": true,
+        "total": false,
+        "values": false
+      },
+      "lines": true,
+      "linewidth": 2,
+      "links": [],
+      "nullPointMode": "null as zero",
+      "options": {
+        "dataLinks": []
+      },
+      "percentage": false,
+      "pointradius": 5,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "expr": "label_replace(sum(rate(container_network_transmit_bytes_total{namespace!=\"eliot\"}[$interval])) by (pod),\"pod\", \"other\",\"pod\",\"\")",
+          "interval": "",
+          "intervalFactor": 2,
+          "legendFormat": "{{name}}",
+          "refId": "A",
+          "step": 240
+        },
+        {
+          "expr": "rate(container_network_transmit_bytes_total{id=\"/\"}[$interval])",
+          "hide": true,
+          "intervalFactor": 2,
+          "legendFormat": "",
+          "refId": "B",
+          "step": 10
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "Sent Network Traffic per other Containers",
+      "tooltip": {
+        "msResolution": true,
+        "shared": true,
+        "sort": 0,
+        "value_type": "cumulative"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "format": "Bps",
+          "label": "",
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": "",
+          "logBase": 10,
+          "max": 8,
+          "min": 0,
+          "show": false
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "Prometheus",
+      "description": "Cumulative CPU time consumed for the ELIoT containers",
       "editable": true,
       "error": false,
       "fieldConfig": {
@@ -1661,7 +2001,7 @@
         "h": 7,
         "w": 12,
         "x": 0,
-        "y": 17
+        "y": 36
       },
       "hiddenSeries": false,
       "id": 40,
@@ -1691,16 +2031,18 @@
       "spaceLength": 10,
       "stack": true,
       "steppedLine": false,
-      "targets": [{
-        "expr": "sum(rate(container_cpu_usage_seconds_total{namespace=\"eliot\"}[$interval])) by (pod) * 100",
-        "hide": false,
-        "interval": "",
-        "intervalFactor": 2,
-        "legendFormat": "{{name}}",
-        "metric": "",
-        "refId": "F",
-        "step": 240
-      }],
+      "targets": [
+        {
+          "expr": "sum(rate(container_cpu_usage_seconds_total{namespace=\"eliot\"}[$interval])) by (pod) * 100",
+          "hide": false,
+          "interval": "",
+          "intervalFactor": 2,
+          "legendFormat": "{{name}}",
+          "metric": "",
+          "refId": "F",
+          "step": 240
+        }
+      ],
       "thresholds": [],
       "timeFrom": null,
       "timeRegions": [],
@@ -1720,8 +2062,9 @@
         "show": true,
         "values": []
       },
-      "yaxes": [{
-          "format": "percent",
+      "yaxes": [
+        {
+          "format": "s",
           "label": "",
           "logBase": 1,
           "max": null,
@@ -1747,6 +2090,7 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": "Prometheus",
+      "description": "Cumulative CPU time consumed for containers different than the ELIoT containers.",
       "editable": true,
       "error": false,
       "fieldConfig": {
@@ -1762,7 +2106,7 @@
         "h": 7,
         "w": 12,
         "x": 12,
-        "y": 17
+        "y": 36
       },
       "hiddenSeries": false,
       "id": 1,
@@ -1792,16 +2136,18 @@
       "spaceLength": 10,
       "stack": true,
       "steppedLine": false,
-      "targets": [{
-        "expr": "label_replace(sum(rate(container_cpu_usage_seconds_total{namespace!=\"eliot\"}[$interval])) by (pod) * 100, \"pod\", \"other\",\"pod\",\"\")",
-        "hide": false,
-        "interval": "",
-        "intervalFactor": 2,
-        "legendFormat": "{{name}}",
-        "metric": "",
-        "refId": "F",
-        "step": 240
-      }],
+      "targets": [
+        {
+          "expr": "label_replace(sum(rate(container_cpu_usage_seconds_total{namespace!=\"eliot\"}[$interval])) by (pod) * 100, \"pod\", \"other\",\"pod\",\"\")",
+          "hide": false,
+          "interval": "",
+          "intervalFactor": 2,
+          "legendFormat": "{{name}}",
+          "metric": "",
+          "refId": "F",
+          "step": 240
+        }
+      ],
       "thresholds": [],
       "timeFrom": null,
       "timeRegions": [],
@@ -1821,8 +2167,9 @@
         "show": true,
         "values": []
       },
-      "yaxes": [{
-          "format": "percent",
+      "yaxes": [
+        {
+          "format": "s",
           "label": "",
           "logBase": 1,
           "max": null,
@@ -1848,6 +2195,7 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": "Prometheus",
+      "description": "Memory consumed by ELIoT containers",
       "editable": true,
       "error": false,
       "fieldConfig": {
@@ -1863,7 +2211,7 @@
         "h": 7,
         "w": 12,
         "x": 0,
-        "y": 24
+        "y": 43
       },
       "hiddenSeries": false,
       "id": 10,
@@ -1893,7 +2241,8 @@
       "spaceLength": 10,
       "stack": true,
       "steppedLine": false,
-      "targets": [{
+      "targets": [
+        {
           "expr": "sum(container_memory_rss{namespace=\"eliot\"}) by (pod)",
           "hide": false,
           "interval": "",
@@ -1930,7 +2279,8 @@
         "show": true,
         "values": []
       },
-      "yaxes": [{
+      "yaxes": [
+        {
           "format": "bytes",
           "label": "",
           "logBase": 1,
@@ -1958,6 +2308,7 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": "Prometheus",
+      "description": "Memory consumed by other containers",
       "editable": true,
       "error": false,
       "fieldConfig": {
@@ -1973,7 +2324,7 @@
         "h": 7,
         "w": 12,
         "x": 12,
-        "y": 24
+        "y": 43
       },
       "hiddenSeries": false,
       "id": 41,
@@ -2003,7 +2354,8 @@
       "spaceLength": 10,
       "stack": true,
       "steppedLine": false,
-      "targets": [{
+      "targets": [
+        {
           "expr": "label_replace(sum(container_memory_rss{namespace!=\"eliot\"}) by (pod),\"pod\", \"other\",\"pod\",\"\")",
           "hide": false,
           "interval": "",
@@ -2040,7 +2392,8 @@
         "show": true,
         "values": []
       },
-      "yaxes": [{
+      "yaxes": [
+        {
           "format": "bytes",
           "label": "",
           "logBase": 1,
@@ -2068,228 +2421,7 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": "Prometheus",
-      "editable": true,
-      "error": false,
-      "fieldConfig": {
-        "defaults": {
-          "custom": {}
-        },
-        "overrides": []
-      },
-      "fill": 1,
-      "fillGradient": 0,
-      "grid": {},
-      "gridPos": {
-        "h": 7,
-        "w": 12,
-        "x": 0,
-        "y": 31
-      },
-      "hiddenSeries": false,
-      "id": 9,
-      "legend": {
-        "alignAsTable": true,
-        "avg": false,
-        "current": false,
-        "hideEmpty": false,
-        "hideZero": false,
-        "max": false,
-        "min": false,
-        "rightSide": true,
-        "show": true,
-        "total": false,
-        "values": false
-      },
-      "lines": true,
-      "linewidth": 2,
-      "links": [],
-      "nullPointMode": "null as zero",
-      "options": {
-        "dataLinks": []
-      },
-      "percentage": false,
-      "pointradius": 5,
-      "points": false,
-      "renderer": "flot",
-      "seriesOverrides": [],
-      "spaceLength": 10,
-      "stack": false,
-      "steppedLine": false,
-      "targets": [{
-          "expr": "sum(rate(container_network_transmit_bytes_total{namespace=\"eliot\"}[$interval])) by (pod)",
-          "interval": "",
-          "intervalFactor": 2,
-          "legendFormat": "{{name}}",
-          "refId": "A",
-          "step": 240
-        },
-        {
-          "expr": "rate(container_network_transmit_bytes_total{id=\"/\"}[$interval])",
-          "hide": true,
-          "intervalFactor": 2,
-          "legendFormat": "",
-          "refId": "B",
-          "step": 10
-        }
-      ],
-      "thresholds": [],
-      "timeFrom": null,
-      "timeRegions": [],
-      "timeShift": null,
-      "title": "Sent Network Traffic per ELIot containers",
-      "tooltip": {
-        "msResolution": true,
-        "shared": true,
-        "sort": 0,
-        "value_type": "cumulative"
-      },
-      "type": "graph",
-      "xaxis": {
-        "buckets": null,
-        "mode": "time",
-        "name": null,
-        "show": true,
-        "values": []
-      },
-      "yaxes": [{
-          "format": "Bps",
-          "label": "",
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        },
-        {
-          "format": "short",
-          "label": "",
-          "logBase": 10,
-          "max": 8,
-          "min": 0,
-          "show": false
-        }
-      ],
-      "yaxis": {
-        "align": false,
-        "alignLevel": null
-      }
-    },
-    {
-      "aliasColors": {},
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
-      "datasource": "Prometheus",
-      "editable": true,
-      "error": false,
-      "fieldConfig": {
-        "defaults": {
-          "custom": {}
-        },
-        "overrides": []
-      },
-      "fill": 1,
-      "fillGradient": 0,
-      "grid": {},
-      "gridPos": {
-        "h": 7,
-        "w": 12,
-        "x": 12,
-        "y": 31
-      },
-      "hiddenSeries": false,
-      "id": 42,
-      "legend": {
-        "alignAsTable": true,
-        "avg": false,
-        "current": false,
-        "hideEmpty": false,
-        "hideZero": false,
-        "max": false,
-        "min": false,
-        "rightSide": true,
-        "show": true,
-        "total": false,
-        "values": false
-      },
-      "lines": true,
-      "linewidth": 2,
-      "links": [],
-      "nullPointMode": "null as zero",
-      "options": {
-        "dataLinks": []
-      },
-      "percentage": false,
-      "pointradius": 5,
-      "points": false,
-      "renderer": "flot",
-      "seriesOverrides": [],
-      "spaceLength": 10,
-      "stack": false,
-      "steppedLine": false,
-      "targets": [{
-          "expr": "label_replace(sum(rate(container_network_transmit_bytes_total{namespace!=\"eliot\"}[$interval])) by (pod),\"pod\", \"other\",\"pod\",\"\")",
-          "interval": "",
-          "intervalFactor": 2,
-          "legendFormat": "{{name}}",
-          "refId": "A",
-          "step": 240
-        },
-        {
-          "expr": "rate(container_network_transmit_bytes_total{id=\"/\"}[$interval])",
-          "hide": true,
-          "intervalFactor": 2,
-          "legendFormat": "",
-          "refId": "B",
-          "step": 10
-        }
-      ],
-      "thresholds": [],
-      "timeFrom": null,
-      "timeRegions": [],
-      "timeShift": null,
-      "title": "Sent Network Traffic per other Containers",
-      "tooltip": {
-        "msResolution": true,
-        "shared": true,
-        "sort": 0,
-        "value_type": "cumulative"
-      },
-      "type": "graph",
-      "xaxis": {
-        "buckets": null,
-        "mode": "time",
-        "name": null,
-        "show": true,
-        "values": []
-      },
-      "yaxes": [{
-          "format": "Bps",
-          "label": "",
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        },
-        {
-          "format": "short",
-          "label": "",
-          "logBase": 10,
-          "max": 8,
-          "min": 0,
-          "show": false
-        }
-      ],
-      "yaxis": {
-        "align": false,
-        "alignLevel": null
-      }
-    },
-    {
-      "aliasColors": {},
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
-      "datasource": "Prometheus",
+      "description": "Memory swap for each ELIoT container",
       "editable": true,
       "error": false,
       "fieldConfig": {
@@ -2305,7 +2437,7 @@
         "h": 7,
         "w": 12,
         "x": 0,
-        "y": 38
+        "y": 50
       },
       "hiddenSeries": false,
       "id": 34,
@@ -2335,7 +2467,8 @@
       "spaceLength": 10,
       "stack": true,
       "steppedLine": false,
-      "targets": [{
+      "targets": [
+        {
           "expr": "sum(container_memory_swap{namespace=\"eliot\"}) by (pod)",
           "hide": false,
           "interval": "",
@@ -2372,7 +2505,8 @@
         "show": true,
         "values": []
       },
-      "yaxes": [{
+      "yaxes": [
+        {
           "format": "bytes",
           "label": "",
           "logBase": 1,
@@ -2400,6 +2534,7 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": "Prometheus",
+      "description": "Memory swap for each other container",
       "editable": true,
       "error": false,
       "fieldConfig": {
@@ -2415,7 +2550,7 @@
         "h": 7,
         "w": 12,
         "x": 12,
-        "y": 38
+        "y": 50
       },
       "hiddenSeries": false,
       "id": 43,
@@ -2445,7 +2580,8 @@
       "spaceLength": 10,
       "stack": true,
       "steppedLine": false,
-      "targets": [{
+      "targets": [
+        {
           "expr": "label_replace(sum(container_memory_swap{namespace!=\"eliot\"}) by (pod),\"pod\", \"other\",\"pod\",\"\")",
           "hide": false,
           "interval": "",
@@ -2482,7 +2618,8 @@
         "show": true,
         "values": []
       },
-      "yaxes": [{
+      "yaxes": [
+        {
           "format": "bytes",
           "label": "",
           "logBase": 1,
@@ -2505,250 +2642,8 @@
       }
     },
     {
-      "columns": [{
-        "text": "Current",
-        "value": "current"
-      }],
-      "datasource": null,
-      "editable": true,
-      "error": false,
-      "fieldConfig": {
-        "defaults": {
-          "custom": {}
-        },
-        "overrides": []
-      },
-      "fontSize": "100%",
-      "gridPos": {
-        "h": 10,
-        "w": 8,
-        "x": 0,
-        "y": 45
-      },
-      "id": 37,
-      "links": [],
-      "pageSize": null,
-      "scroll": true,
-      "showHeader": true,
-      "sort": {
-        "col": 0,
-        "desc": true
-      },
-      "styles": [{
-        "align": "auto",
-        "colorMode": null,
-        "colors": [
-          "rgba(245, 54, 54, 0.9)",
-          "rgba(237, 129, 40, 0.89)",
-          "rgba(50, 172, 45, 0.97)"
-        ],
-        "decimals": 2,
-        "pattern": "/.*/",
-        "thresholds": [
-          "10000000",
-          " 25000000"
-        ],
-        "type": "number",
-        "unit": "decbytes"
-      }],
-      "targets": [{
-          "expr": "sum(container_spec_memory_limit_bytes{name=~\".+\"} - container_memory_usage_bytes{name=~\".+\"}) by (name) ",
-          "hide": true,
-          "intervalFactor": 2,
-          "legendFormat": "{{name}}",
-          "metric": "",
-          "refId": "A",
-          "step": 240
-        },
-        {
-          "expr": "sum(container_spec_memory_limit_bytes{name=~\".+\"}) by (name) ",
-          "hide": true,
-          "intervalFactor": 2,
-          "legendFormat": "{{name}}",
-          "refId": "B",
-          "step": 240
-        },
-        {
-          "expr": "container_memory_usage_bytes{name=~\".+\"}",
-          "hide": false,
-          "intervalFactor": 2,
-          "legendFormat": "{{name}}",
-          "refId": "C",
-          "step": 240
-        }
-      ],
-      "title": "Usage memory",
-      "transform": "timeseries_aggregations",
-      "type": "table-old"
-    },
-    {
-      "columns": [{
-        "text": "Current",
-        "value": "current"
-      }],
-      "datasource": null,
-      "editable": true,
-      "error": false,
-      "fieldConfig": {
-        "defaults": {
-          "custom": {}
-        },
-        "overrides": []
-      },
-      "fontSize": "100%",
-      "gridPos": {
-        "h": 10,
-        "w": 8,
-        "x": 8,
-        "y": 45
-      },
-      "id": 35,
-      "links": [],
-      "pageSize": null,
-      "scroll": true,
-      "showHeader": true,
-      "sort": {
-        "col": 1,
-        "desc": true
-      },
-      "styles": [{
-        "align": "auto",
-        "colorMode": "cell",
-        "colors": [
-          "rgba(50, 172, 45, 0.97)",
-          "rgba(237, 129, 40, 0.89)",
-          "rgba(245, 54, 54, 0.9)"
-        ],
-        "decimals": 2,
-        "pattern": "/.*/",
-        "thresholds": [
-          "80",
-          "90"
-        ],
-        "type": "number",
-        "unit": "percent"
-      }],
-      "targets": [{
-          "expr": "sum(100 - ((container_spec_memory_limit_bytes{name=~\".+\"} - container_memory_usage_bytes{name=~\".+\"})  * 100 / container_spec_memory_limit_bytes{name=~\".+\"}) ) by (name) ",
-          "interval": "",
-          "intervalFactor": 2,
-          "legendFormat": "{{name}}",
-          "metric": "",
-          "refId": "A",
-          "step": 240
-        },
-        {
-          "expr": "sum(container_spec_memory_limit_bytes{name=~\".+\"}) by (name) ",
-          "hide": true,
-          "intervalFactor": 2,
-          "legendFormat": "{{name}}",
-          "refId": "B",
-          "step": 240
-        },
-        {
-          "expr": "container_memory_usage_bytes{name=~\".+\"}",
-          "hide": true,
-          "intervalFactor": 2,
-          "legendFormat": "{{name}}",
-          "refId": "C",
-          "step": 240
-        }
-      ],
-      "title": "Remaining memory",
-      "transform": "timeseries_aggregations",
-      "type": "table-old"
-    },
-    {
-      "columns": [{
-        "text": "Current",
-        "value": "current"
-      }],
-      "datasource": null,
-      "editable": true,
-      "error": false,
-      "fieldConfig": {
-        "defaults": {
-          "custom": {}
-        },
-        "overrides": []
-      },
-      "fontSize": "100%",
-      "gridPos": {
-        "h": 10,
-        "w": 8,
-        "x": 16,
-        "y": 45
-      },
-      "id": 36,
-      "links": [],
-      "pageSize": null,
-      "scroll": true,
-      "showHeader": true,
-      "sort": {
-        "col": 0,
-        "desc": true
-      },
-      "styles": [{
-        "align": "auto",
-        "colorMode": null,
-        "colors": [
-          "rgba(245, 54, 54, 0.9)",
-          "rgba(237, 129, 40, 0.89)",
-          "rgba(50, 172, 45, 0.97)"
-        ],
-        "decimals": 2,
-        "pattern": "/.*/",
-        "thresholds": [
-          "10000000",
-          " 25000000"
-        ],
-        "type": "number",
-        "unit": "decbytes"
-      }],
-      "targets": [{
-          "expr": "sum(container_spec_memory_limit_bytes{name=~\".+\"} - container_memory_usage_bytes{name=~\".+\"}) by (name) ",
-          "hide": true,
-          "intervalFactor": 2,
-          "legendFormat": "{{name}}",
-          "metric": "",
-          "refId": "A",
-          "step": 240
-        },
-        {
-          "expr": "sum(container_spec_memory_limit_bytes{name=~\".+\"}) by (name) ",
-          "hide": false,
-          "intervalFactor": 2,
-          "legendFormat": "{{name}}",
-          "refId": "B",
-          "step": 240
-        },
-        {
-          "expr": "container_memory_usage_bytes{name=~\".+\"}",
-          "hide": true,
-          "intervalFactor": 2,
-          "legendFormat": "{{name}}",
-          "refId": "C",
-          "step": 240
-        }
-      ],
-      "title": "Limit memory",
-      "transform": "timeseries_aggregations",
-      "type": "table-old"
-    },
-    {
-      "cards": {
-        "cardPadding": null,
-        "cardRound": null
-      },
-      "color": {
-        "cardColor": "#b4ff00",
-        "colorScale": "sqrt",
-        "colorScheme": "interpolateOranges",
-        "exponent": 0.5,
-        "mode": "spectrum"
-      },
-      "dataFormat": "timeseries",
       "datasource": "Prometheus",
+      "description": "Startup time of each ELIoT container in seconds",
       "fieldConfig": {
         "defaults": {
           "custom": {
@@ -2757,7 +2652,8 @@
           "mappings": [],
           "thresholds": {
             "mode": "absolute",
-            "steps": [{
+            "steps": [
+              {
                 "color": "green",
                 "value": null
               },
@@ -2771,51 +2667,37 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 8,
-        "w": 12,
+        "h": 9,
+        "w": 24,
         "x": 0,
-        "y": 55
+        "y": 57
       },
-      "heatmap": {},
-      "hideZeroBuckets": false,
-      "highlightCards": true,
       "id": 46,
-      "legend": {
-        "show": false
+      "options": {
+        "displayMode": "gradient",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "mean"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showUnfilled": true
       },
       "pluginVersion": "7.0.3",
-      "reverseYBuckets": false,
-      "targets": [{
-        "expr": "- sort(kube_pod_created{namespace=\"eliot\"}) + kube_pod_start_time{namespace=\"eliot\"}",
-        "interval": "",
-        "legendFormat": "",
-        "refId": "A"
-      }],
+      "targets": [
+        {
+          "expr": "- sort(kube_pod_created{namespace=\"eliot\"}) + kube_pod_start_time{namespace=\"eliot\"}",
+          "interval": "",
+          "legendFormat": "{{pod}}",
+          "refId": "A"
+        }
+      ],
       "timeFrom": null,
       "timeShift": null,
       "title": "Container startup time",
-      "tooltip": {
-        "show": true,
-        "showHistogram": false
-      },
-      "type": "heatmap",
-      "xAxis": {
-        "show": true
-      },
-      "xBucketNumber": null,
-      "xBucketSize": null,
-      "yAxis": {
-        "decimals": null,
-        "format": "short",
-        "logBase": 1,
-        "max": null,
-        "min": null,
-        "show": true,
-        "splitFactor": null
-      },
-      "yBucketBound": "auto",
-      "yBucketNumber": null,
-      "yBucketSize": null
+      "type": "bargauge"
     }
   ],
   "refresh": false,
@@ -2823,7 +2705,8 @@
   "style": "dark",
   "tags": [],
   "templating": {
-    "list": [{
+    "list": [
+      {
         "allValue": ".+",
         "current": {
           "selected": true,
@@ -2866,7 +2749,8 @@
         "label": "Interval",
         "multi": false,
         "name": "interval",
-        "options": [{
+        "options": [
+          {
             "selected": true,
             "text": "auto",
             "value": "$__auto_interval_interval"
@@ -2916,10 +2800,9 @@
       {
         "allValue": null,
         "current": {
-          "isNone": true,
           "selected": false,
-          "text": "None",
-          "value": ""
+          "text": "172.19.0.2",
+          "value": "172.19.0.2"
         },
         "datasource": "Prometheus",
         "definition": "label_values(node_boot_time_seconds, instance)",
@@ -2973,5 +2856,5 @@
   "timezone": "browser",
   "title": "Docker and system monitoring",
   "uid": "asyPGwgMz",
-  "version": 2
+  "version": 17
 }
