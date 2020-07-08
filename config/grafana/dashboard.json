@@ -15,7 +15,7 @@
   "gnetId": 893,
   "graphTooltip": 1,
   "id": 1,
-  "iteration": 1594021018720,
+  "iteration": 1594193648232,
   "links": [],
   "panels": [{
       "cacheTimeout": null,
@@ -536,7 +536,7 @@
         "lineColor": "rgb(31, 120, 193)",
         "show": false
       },
-      "tableColumn": "{app=\"prometheus-node-exporter\", app_kubernetes_io_managed_by=\"Helm\", chart=\"prometheus-node-exporter-1.9.1\", heritage=\"Helm\", instance=\"172.17.0.2:9100\", job=\"kubernetes-service-endpoints\", kubernetes_name=\"prometheus-node-exporter-1594020718\", kubernetes_namespace=\"monitoring\", release=\"prometheus-node-exporter-1594020718\"}",
+      "tableColumn": "{app=\"prometheus-node-exporter\", app_kubernetes_io_managed_by=\"Helm\", chart=\"prometheus-node-exporter-1.9.1\", heritage=\"Helm\", instance=\"172.17.0.2:9100\", job=\"kubernetes-service-endpoints\", kubernetes_name=\"prometheus-node-exporter-1594192711\", kubernetes_namespace=\"monitoring\", release=\"prometheus-node-exporter-1594192711\"}",
       "targets": [{
         "expr": "((node_memory_MemTotal_bytes - node_memory_MemAvailable_bytes) / node_memory_MemTotal_bytes) * 100",
         "interval": "",
@@ -1007,7 +1007,7 @@
       "renderer": "flot",
       "seriesOverrides": [],
       "spaceLength": 10,
-      "stack": false,
+      "stack": true,
       "steppedLine": false,
       "targets": [{
         "expr": "sum(rate(container_network_receive_bytes_total{namespace=\"eliot\"}[$interval])) by (pod)",
@@ -1108,7 +1108,7 @@
       "renderer": "flot",
       "seriesOverrides": [],
       "spaceLength": 10,
-      "stack": false,
+      "stack": true,
       "steppedLine": false,
       "targets": [{
         "expr": "label_replace(sum(rate(container_network_receive_bytes_total{namespace!=\"eliot\"}[$interval])) by (pod),\"pod\", \"other\",\"pod\",\"\")",
@@ -1211,7 +1211,7 @@
       "renderer": "flot",
       "seriesOverrides": [],
       "spaceLength": 10,
-      "stack": false,
+      "stack": true,
       "steppedLine": false,
       "targets": [{
         "expr": "sum(rate(container_network_transmit_bytes_total{namespace=\"eliot\"}[$interval])) by (pod)",
@@ -1315,7 +1315,7 @@
       "renderer": "flot",
       "seriesOverrides": [],
       "spaceLength": 10,
-      "stack": false,
+      "stack": true,
       "steppedLine": false,
       "targets": [{
         "expr": "label_replace(sum(rate(container_network_transmit_bytes_total{namespace!=\"eliot\"}[$interval])) by (pod),\"pod\", \"other\",\"pod\",\"\")",
@@ -1419,7 +1419,7 @@
       "stack": true,
       "steppedLine": false,
       "targets": [{
-        "expr": "container_cpu_usage_seconds_total{namespace=\"eliot\"} / scalar(sum(container_cpu_usage_seconds_total))",
+        "expr": "sum(container_cpu_usage_seconds_total{namespace=\"eliot\"}) by (pod) / scalar(sum(node_cpu_seconds_total))",
         "hide": false,
         "interval": "",
         "intervalFactor": 2,
@@ -1521,7 +1521,7 @@
       "stack": true,
       "steppedLine": false,
       "targets": [{
-        "expr": "label_replace(container_cpu_usage_seconds_total{namespace!=\"eliot\",pod=~\".+\"} / scalar(sum(container_cpu_usage_seconds_total{pod=~\".+\"})), \"pod\", \"other\",\"pod\",\"\")",
+        "expr": "label_replace(sum(container_cpu_usage_seconds_total{namespace!=\"eliot\",pod=~\".+\"}) by (pod) / scalar(sum(node_cpu_seconds_total)), \"pod\", \"other\",\"pod\",\"\")",
         "hide": false,
         "interval": "",
         "legendFormat": "{{pod}}",
@@ -1926,7 +1926,6 @@
         "allValue": null,
         "current": {
           "selected": true,
-          "tags": [],
           "text": "172.17.0.2",
           "value": [
             "172.17.0.2"
