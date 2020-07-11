@@ -34,3 +34,8 @@ node_modules
 
 # Optional REPL history
 .node_repl_history
+
+#  Jupyter and statistics folder
+stats/data
+stats/*.mp4
+.ipynb*

@@ -6,7 +6,7 @@ We are currently using Helm to deploy the node exporter, so you will need to hav
 
 ## Develop locally using KIND
 
-[KIND](https://kind.sigs.k8s.io/), alias Kubernetes IN Docker, allows to deploy k8s clusters locally (in Docker). As an advantage to Minikube, it can handle multinode configuration on the same machine (e.g. 1 master node and 2 worker nodes).
+[KIND](https://kind.sigs.k8s.io/), alias Kubernetes IN Docker, allows to deploy k8s clusters locally (in Docker). As an advantage to Minikube, it can handle multinode configuration on the same machine (e.g. 1 master node and 2 worker nodes),which allows us to simulate a huge amount of IoT devices.
 
 By running `./setup.sh --kind` you can leave the script do the magic for you. Other options are documented in `setup.sh -h`
 
@@ -26,7 +26,7 @@ Be sure to check that everything is deployed correctly `watch kubectl get po -A`
 
 ## Default configuration
 
-The dafault max number of pods per node is 110\. Adding worker nodes to kind configuration increases the number of deployable pods by the default 110 per node.
+The default max number of pods per node is 110\. Adding worker nodes to the kind configuration file increases the number of deployable pods by the default 110 per node.
 
 ```
 - role: worker
@@ -45,4 +45,10 @@ or
 
 # Deploy over multiple servers
 
-Be sure to have the correct configuration ready on the server where you want to k8s run the control-plane ([docs](https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/install-kubeadm/)). Then run `./setup.sh --admin`. For more information check [k8s docs](https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/).
+Be sure to have the correct configuration ready on the server where you want K8s to run the control-plane ([docs](https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/install-kubeadm/)). Then run `./setup.sh --admin` and subsequently run the join command on the worker nodes. For more information check [k8s docs](https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/).
+
+# Resource limits
+
+To set specific resource limits before scaling ELIoT is advised; this allows you to set an upper bound for resource usage for the eliot namespace. Please run the following command in the `eliot` folder. For more information please refer to the [documentation](https://kubernetes.io/docs/concepts/policy/resource-quotas/). `MEMORY="1Gi" CPU="1" envsubst < resource-quota.yml | kubectl apply -f -`
+
+Check that everything works `kubectl describe quota -A`

@@ -1,0 +1,14 @@
+# MEMORY="1Gi" CPU="1" envsubst < resource-quota.yml | kubectl apply -f -
+
+apiVersion: v1
+kind: List
+items:
+- apiVersion: v1
+  kind: ResourceQuota
+  metadata:
+    name: eliot-quota
+    namespace: eliot
+  spec:
+    hard:
+      cpu: "${CPU}"
+      memory: "${MEMORY}"

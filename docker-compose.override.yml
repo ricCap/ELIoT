@@ -11,7 +11,7 @@ services:
     volumes:
     - ./config/prometheus.yml:/etc/prometheus/prometheus.yml:ro
     - prometheus-data:/prometheus/data
-    #- /tmp/eliot/prometheus-storage:/prometheus/data # shared with k8s
+    #- /tmp/eliot/prometheus-storage:/prometheus/data # shared with K8s
     depends_on:
     - cadvisor
     - node-exporter
@@ -43,7 +43,7 @@ services:
     ports:
     - 3000:3000
     volumes:
-    #- /tmp/eliot/grafana-storage:/var/lib/grafana # shared with k8s
+    #- /tmp/eliot/grafana-storage:/var/lib/grafana # shared with K8s
     - grafana-storage:/var/lib/grafana # only docker-compose
     - grafana-config:/etc/grafana
     depends_on:

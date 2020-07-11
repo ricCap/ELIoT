@@ -1,5 +1,4 @@
 #!/bin/bash
-#set -euo pipefail
 chmod -R 765 ./*.sh
 
 services=("prometheus" "kube-state-metrics" "grafana" "eliot" "node-exporter")
