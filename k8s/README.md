@@ -49,6 +49,6 @@ Be sure to have the correct configuration ready on the server where you want K8s
 
 # Resource limits
 
-To set specific resource limits before scaling ELIoT is advised; this allows you to set an upper bound for resource usage for the eliot namespace. Please run the following command in the `eliot` folder. For more information please refer to the [documentation](https://kubernetes.io/docs/concepts/policy/resource-quotas/). `MEMORY="1Gi" CPU="1" envsubst < resource-quota.yml | kubectl apply -f -`
+To set specific resource limits before scaling ELIoT is advised; this allows you to set an upper bound for resource usage for the eliot namespace. Please run the following command in the `eliot` folder. For more information please refer to the [documentation](https://kubernetes.io/docs/concepts/policy/resource-quotas/). `MEMORY="1Gi" envsubst < resource-quota.yml | kubectl apply -f -`
 
 Check that everything works `kubectl describe quota -A`

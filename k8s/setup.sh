@@ -1,6 +1,8 @@
 #!/bin/bash
 chmod -R 765 ./*.sh
 
+export KIND_CONFIG_PATH="../config/kind.yml"
+
 services=("prometheus" "kube-state-metrics" "grafana" "eliot" "node-exporter")
 
 if [[ $# -eq 0 ]]; then
@@ -27,6 +29,9 @@ while [[ "$1" =~ ^- && ! "$1" == "--" ]]; do case $1 in
   -k|--kind)
     command="kind"
     ;;
+  --kind-config-path)
+    shift; KIND_CONFIG_PATH=$1
+    ;;
   -s|--services)
     shift; services=($1)
     ;;
@@ -48,7 +53,7 @@ while [[ "$1" =~ ^- && ! "$1" == "--" ]]; do case $1 in
     scale $target $replicas
     exit
     ;;
-  -h|--help|*)
+  -h|--help)
     echo "Services are automatically deployed when creating a cluster"
     echo
     echo "-k|--kind                    Create a kind cluster"
@@ -60,11 +65,13 @@ while [[ "$1" =~ ^- && ! "$1" == "--" ]]; do case $1 in
     echo "--no-services                Do not deploy default services"
     exit
     ;;
+  *)
+    echo "Command not recognized $1: use -h or --help"
 esac; shift; done
 
 if [[ -n "$command" ]]; then
   if [[ "$command" == 'kind' ]]; then
-    kind create cluster --config=../config/kind.yml
+    kind create cluster --config=$KIND_CONFIG_PATH
   elif [[ "$command" == 'kubeadm' ]]; then
     ./setup-adm.sh
   fi
