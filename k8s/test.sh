@@ -6,6 +6,7 @@ readonly ELIOT_K8S_HOME="$(pwd)"
 readonly LOG_FILE="$ELIOT_K8S_HOME/test.log"
 readonly KIND_CONFIG_PATH="$ELIOT_K8S_HOME/test_kind_config.yaml"
 
+readonly RESOURCE_QUOTA_CPU_CORES=4
 readonly RESOURCE_QUOTA_MEMORY_MB=4096
 readonly ELIOT_DEVICE_AVG_SIZE_MB=50
 readonly SCALEUP_MAX_CONTAINERS=$RESOURCE_QUOTA_MEMORY_MB/$ELIOT_DEVICE_AVG_SIZE_MB
@@ -20,51 +21,53 @@ function log(){
 }
 
 function wait_system_idle(){
+  sleep 10
   local running_pods=$(kubectl get pods -A --field-selector=status.phase=Running -o json | jq '.items | length')
   local deployed_pods=$(kubectl get pods -A -o json | jq '.items | length')
 
-  while [[ $deployed_pods > $running_pods ]]; do
+  while [[ $deployed_pods -gt $running_pods ]]; do
     log "Waiting pods; deployed: $deployed_pods, running: $running_pods"
     sleep 10
     running_pods=$(kubectl get pods -A --field-selector=status.phase=Running -o json | jq '.items | length')
     deployed_pods=$(kubectl get pods -A -o json | jq '.items | length')
   done
+
+  log "System idle: deployed: $deployed_pods, running: $running_pods"
 }
 
 function do_scale(){
-  local step=$1
-  local scale_time_delta_seconds=$2
+  local scale_time_delta_seconds=$1
+  local step_up=$2
+  local step_down=$3
+  local target_containers=0
 
-  local deployed_eliot_containers=$(kubectl get pods -n eliot -o json | jq '.items | length')
+  log "Resetting deployed containers to 0"
+  $ELIOT_K8S_HOME/setup.sh --scale eliot-weather 0
+  wait_system_idle
 
-  while [[ $deployed_eliot_containers -le $SCALEUP_MAX_CONTAINERS && $deployed_eliot_containers -le 1000 ]]; do
-    local target_containers=$((deployed_eliot_containers + $step))
+  log "Starting scaling"
+  while [[ $target_containers -le $SCALEUP_MAX_CONTAINERS && $target_containers -le 1000 ]]; do
+    target_containers=$((target_containers + $step_up))
     log "Scaling up: target=$target_containers"
-    $ELIOT_K8S_HOME/setup.sh --scale all $target_containers
-    deployed_eliot_containers=$(kubectl get pods -n eliot -o json | jq '.items | length')
+    $ELIOT_K8S_HOME/setup.sh --scale eliot-weather $target_containers
+
+    if [[ -n "${step_down:-}" ]]; then
+      local target_containers_down=$(($target_containers - $step_down))
+      log "Scaling down: target=$target_containers_down"
+      $ELIOT_K8S_HOME/setup.sh --scale eliot-weather $target_containers_down
+    fi
+
     sleep $scale_time_delta_seconds
   done
 }
 
-function scale_up_test(){
-  local step=$1
-  local scale_time_delta_seconds=$2
+function scale_test(){
+  local scale_time_delta_seconds=$1
+  local step_up=$2
+  local step_down=$3
   TEST_COUNTER=$((TEST_COUNTER + 1))
-  log "Starting test $TEST_COUNTER: step $step, delta: $delta seconds"
-  do_scale $step $scale_time_delta_seconds
-  wait_system_idle
-  log "Test $TEST_COUNTER completed, waiting for the stabilization period"
-  sleep $STABILIZATION_PERIOD_SECONDS
-}
-
-function scale_down_test(){
-  local step_up=$1
-  local step_down=$2
-  local scale_time_delta_seconds=$3
-  TEST_COUNTER=$((TEST_COUNTER + 1))
-  log "Starting test $TEST_COUNTER: step $step, delta: $scale_time_delta_seconds seconds"
-  do_scale $step_up $scale_time_delta_seconds &
-  do_scale $step_down $scale_time_delta_seconds &
+  log "Starting test $TEST_COUNTER: delta: $scale_time_delta_seconds seconds, step_up $step_up, step_down: ${step_down:-}"
+  do_scale $scale_time_delta_seconds $step_up $step_down
   wait_system_idle
   log "Test $TEST_COUNTER completed, waiting for the stabilization period"
   sleep $STABILIZATION_PERIOD_SECONDS
@@ -87,40 +90,40 @@ function configure(){
   $ELIOT_K8S_HOME/setup.sh --scale all 0
 
   log "Enforcing resource quota on eliot namespace"
-  #MEMORY="${MEMORY=$RESOURCE_QUOTA_MEMORY_MB}Mi" envsubst < "$ELIOT_K8S_HOME/eliot/resource-quota.yml" | kubectl apply -f -
-  # MEMORY="1Gi" CPU="1" envsubst < resource-quota.yml | kubectl apply -f -
+  MEMORY="${RESOURCE_QUOTA_MEMORY_MB}Mi" CPU="$RESOURCE_QUOTA_CPU_CORES" envsubst < "$ELIOT_K8S_HOME/eliot/resource-quota.yml" | kubectl apply -f -
 
   log "Waiting for the system to stabilize"
   wait_system_idle
+  log "All pods have been deployed successfully, waiting for the stabilization period"
   sleep $STABILIZATION_PERIOD_SECONDS
 }
 
 function test(){
     local step=50
-    local scale_time_delta_seconds=20
-    scale_up_test $step $scale_time_delta_seconds
+    local scale_time_delta_seconds=10
+    scale_test $scale_time_delta_seconds $step
+
+    step=50
+    scale_time_delta_seconds=20
+    scale_test $scale_time_delta_seconds $step
 
     step=100
     scale_time_delta_seconds=10
-    scale_up_test $step $scale_time_delta_seconds
+    scale_test $scale_time_delta_seconds $step
 
     step=100
     scale_time_delta_seconds=20
-    scale_up_test $step $scale_time_delta_seconds
+    scale_test $scale_time_delta_seconds $step
 
-    step=100
-    scale_time_delta_seconds=20
-    scale_up_test $step $scale_time_delta_seconds
-
-    local step_up=100
-    local step_down=-50
+    local step_up=50
+    local step_down=25
     scale_time_delta_seconds=10
-    scale_down_test $step_up $step_down $scale_time_delta_seconds
+    scale_test $scale_time_delta_seconds $step_up $step_down
 
-    step_up=100
-    step_down=-50
+    step_up=50
+    step_down=25
     scale_time_delta_seconds=20
-    scale_down_test $step_up $step_down $scale_time_delta_seconds
+    scale_test $scale_time_delta_seconds $step_up $step_down
 }
 
 function main(){
