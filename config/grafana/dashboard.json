@@ -17,7 +17,7 @@
   "gnetId": 893,
   "graphTooltip": 1,
   "id": 1,
-  "iteration": 1595683715219,
+  "iteration": 1595951985925,
   "links": [],
   "panels": [
     {
@@ -575,10 +575,10 @@
         "lineColor": "rgb(31, 120, 193)",
         "show": false
       },
-      "tableColumn": "{app=\"prometheus-node-exporter\", app_kubernetes_io_managed_by=\"Helm\", chart=\"prometheus-node-exporter-1.9.1\", heritage=\"Helm\", instance=\"172.17.0.2:9100\", job=\"kubernetes-service-endpoints\", kubernetes_name=\"prometheus-node-exporter-1594192711\", kubernetes_namespace=\"monitoring\", release=\"prometheus-node-exporter-1594192711\"}",
+      "tableColumn": "",
       "targets": [
         {
-          "expr": "((node_memory_MemTotal_bytes - node_memory_MemAvailable_bytes) / node_memory_MemTotal_bytes) * 100",
+          "expr": "avg((node_memory_MemTotal_bytes - node_memory_MemAvailable_bytes) / node_memory_MemTotal_bytes) * 100",
           "interval": "",
           "intervalFactor": 2,
           "legendFormat": "",
@@ -651,7 +651,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "node_load1",
+          "expr": "avg(node_load1)",
           "interval": "",
           "legendFormat": "",
           "refId": "B"
@@ -678,10 +678,10 @@
       },
       "yaxes": [
         {
-          "format": "none",
+          "format": "percent",
           "label": null,
           "logBase": 1,
-          "max": "20",
+          "max": "100",
           "min": null,
           "show": true
         },
@@ -1910,7 +1910,7 @@
       "type": "bargauge"
     }
   ],
-  "refresh": false,
+  "refresh": "10s",
   "schemaVersion": 26,
   "style": "dark",
   "tags": [],
@@ -1949,7 +1949,7 @@
         "auto_count": 50,
         "auto_min": "50s",
         "current": {
-          "selected": true,
+          "selected": false,
           "text": "auto",
           "value": "$__auto_interval_interval"
         },
@@ -2036,7 +2036,7 @@
     ]
   },
   "time": {
-    "from": "now-5m",
+    "from": "now-30m",
     "to": "now"
   },
   "timepicker": {
@@ -2066,5 +2066,5 @@
   "timezone": "browser",
   "title": "Docker and system monitoring",
   "uid": "asyPGwgMz",
-  "version": 12
+  "version": 6
 }
