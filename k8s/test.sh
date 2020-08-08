@@ -5,12 +5,13 @@ set pipefail -euo
 readonly ELIOT_K8S_HOME="$(pwd)"
 readonly LOG_FILE="$ELIOT_K8S_HOME/test.log"
 readonly KIND_CONFIG_PATH="$ELIOT_K8S_HOME/test_kind_config.yaml"
+readonly TEST_TIMES_FILE="$ELIOT_K8S_HOME/test_times.log"
 
-readonly RESOURCE_QUOTA_CPU_CORES=4
-readonly RESOURCE_QUOTA_MEMORY_MB=4096
+readonly RESOURCE_QUOTA_CPU_CORES=12
+readonly RESOURCE_QUOTA_MEMORY_MB=20480
 readonly ELIOT_DEVICE_AVG_SIZE_MB=50
 readonly SCALEUP_MAX_CONTAINERS=$RESOURCE_QUOTA_MEMORY_MB/$ELIOT_DEVICE_AVG_SIZE_MB
-readonly STABILIZATION_PERIOD_SECONDS=120
+readonly STABILIZATION_PERIOD_SECONDS=180
 
 export TEST_COUNTER=0
 
@@ -35,19 +36,35 @@ function wait_system_idle(){
   log "System idle: deployed: $deployed_pods, running: $running_pods"
 }
 
+function wait_system_idle_reset(){
+  sleep 10
+  local running_pods=$(kubectl get pods -A --field-selector=status.phase=Running -o json | jq '.items | length')
+  local deployed_pods=$(kubectl get pods -A -o json | jq '.items | length')
+
+  while [[ $deployed_pods -gt 30 && $running_pods -gt 30 ]]; do
+    log "Waiting pods; deployed: $deployed_pods, running: $running_pods"
+    sleep 10
+    running_pods=$(kubectl get pods -A --field-selector=status.phase=Running -o json | jq '.items | length')
+    deployed_pods=$(kubectl get pods -A -o json | jq '.items | length')
+  done
+
+  log "System idle: deployed: $deployed_pods, running: $running_pods"
+}
+
 function do_scale(){
   local scale_time_delta_seconds=$1
   local step_up=$2
   local step_down=$3
-  local target_containers=0
+  local target_containers=$step_up
 
   log "Resetting deployed containers to 0"
   $ELIOT_K8S_HOME/setup.sh --scale eliot-weather 0
-  wait_system_idle
+  #wait_system_idle
+  wait_system_idle_reset
 
   log "Starting scaling"
+  echo "Test $TEST_COUNTER started at $(date +"%F,%T,%Z")" >> $TEST_TIMES_FILE 2>&1
   while [[ $target_containers -le $SCALEUP_MAX_CONTAINERS && $target_containers -le 1000 ]]; do
-    target_containers=$((target_containers + $step_up))
     log "Scaling up: target=$target_containers"
     $ELIOT_K8S_HOME/setup.sh --scale eliot-weather $target_containers
 
@@ -58,6 +75,7 @@ function do_scale(){
     fi
 
     sleep $scale_time_delta_seconds
+    target_containers=$((target_containers + $step_up))
   done
 }
 
@@ -71,6 +89,7 @@ function scale_test(){
   wait_system_idle
   log "Test $TEST_COUNTER completed, waiting for the stabilization period"
   sleep $STABILIZATION_PERIOD_SECONDS
+  echo "Test $TEST_COUNTER completed at $(date +"%F,%T,%Z")" >> $TEST_TIMES_FILE 2>&1
 }
 
 function configure(){
@@ -90,7 +109,7 @@ function configure(){
   $ELIOT_K8S_HOME/setup.sh --scale all 0
 
   log "Enforcing resource quota on eliot namespace"
-  MEMORY="${RESOURCE_QUOTA_MEMORY_MB}Mi" CPU="$RESOURCE_QUOTA_CPU_CORES" envsubst < "$ELIOT_K8S_HOME/eliot/resource-quota.yml" | kubectl apply -f -
+  #MEMORY="${RESOURCE_QUOTA_MEMORY_MB}Mi" CPU="$RESOURCE_QUOTA_CPU_CORES" envsubst < "$ELIOT_K8S_HOME/eliot/resource-quota.yml" | kubectl apply -f -
 
   log "Waiting for the system to stabilize"
   wait_system_idle
