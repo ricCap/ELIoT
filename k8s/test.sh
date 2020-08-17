@@ -66,7 +66,7 @@ function do_scale(){
     target_containers=$((target_containers + $step_up))
   done
 
-  wait_system_idle $((target_containers - $step_up + $DEFAULT_IDLE_PODS))
+    wait_system_idle $((target_containers - $step_up - ${step_down:-0} + $DEFAULT_IDLE_PODS))
 }
 
 function scale_test(){
