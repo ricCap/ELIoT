@@ -7,10 +7,10 @@ readonly LOG_FILE="$ELIOT_K8S_HOME/test.log"
 readonly KIND_CONFIG_PATH="$ELIOT_K8S_HOME/test_kind_config.yaml"
 readonly TEST_TIMES_FILE="$ELIOT_K8S_HOME/test_times.log"
 
-readonly RESOURCE_QUOTA_MEMORY_MB=4096
+readonly RESOURCE_QUOTA_MEMORY_MB=5120
 readonly ELIOT_DEVICE_AVG_SIZE_MB=50
 readonly SCALEUP_MAX_CONTAINERS=$RESOURCE_QUOTA_MEMORY_MB/$ELIOT_DEVICE_AVG_SIZE_MB
-readonly STABILIZATION_PERIOD_SECONDS=180
+readonly STABILIZATION_PERIOD_SECONDS=420
 readonly DEFAULT_ELIOT_PODS=2
 
 export TEST_COUNTER=0
@@ -52,6 +52,7 @@ function do_scale(){
   wait_system_idle $DEFAULT_IDLE_PODS
 
   log "Starting scaling"
+  log "Starting scaling Test $TEST_COUNTER" $TEST_TIMES_FILE
   while [[ $target_containers -le $SCALEUP_MAX_CONTAINERS && $target_containers -le 1000 ]]; do
     log "Scaling up: target=$target_containers"
     $ELIOT_K8S_HOME/setup.sh --scale eliot-weather $target_containers
@@ -74,7 +75,7 @@ function scale_test(){
   local step_up=$2
   local step_down=$3
   TEST_COUNTER=$((TEST_COUNTER + 1))
-  log "Starting test $TEST_COUNTER: delta: $scale_time_delta_seconds seconds, step_up $step_up, step_down: ${step_down:-}" $TEST_TIMES_FILE
+  log "Starting test $TEST_COUNTER: delta: $scale_time_delta_seconds seconds, step_up $step_up, step_down: ${step_down:-}"
   do_scale $scale_time_delta_seconds $step_up $step_down
   log "Test $TEST_COUNTER completed, waiting for the stabilization period"
   sleep $STABILIZATION_PERIOD_SECONDS
