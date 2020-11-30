@@ -81,3 +81,25 @@ spec:
       - name: eliot-light
         image: riccap/eliot:slim
         args: ["light_control.js","$(ELIOT_SERVER_SERVICE_HOST)"]
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: eliot-latency-sensor
+  namespace: eliot
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: eliot-latency-sensor
+  template:
+    metadata:
+      name: eliot-latency-sensor
+      labels:
+        app: eliot-latency-sensor
+    spec:
+      containers:
+      - name: eliot-latency-sensor
+        image: riccap/eliot:slim
+        imagePullPolicy: Always
+        args: ["latency_sensor.js","$(ELIOT_SERVER_SERVICE_HOST)"]

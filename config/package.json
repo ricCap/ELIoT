@@ -14,7 +14,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/Alliasd/ELIOT.git"
+    "url": "https://github.com/riccap/ELIOT.git"
   },
   "keywords": [
     "coap",
@@ -27,7 +27,7 @@
   "author": "",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/Alliasd/ELIOT/issues"
+    "url": "https://github.com/riccap/ELIOT/issues"
   },
-  "homepage": "https://github.com/Alliasd/ELIOT"
+  "homepage": "https://github.com/riccap/ELIOT"
 }
