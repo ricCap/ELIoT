@@ -102,4 +102,4 @@ spec:
       - name: eliot-latency-sensor
         image: riccap/eliot:slim
         imagePullPolicy: Always
-        args: ["latency_sensor.js","$(ELIOT_SERVER_SERVICE_HOST)"]
+        args: ["latency_sensor.js","$(ELIOT_SERVER_SERVICE_HOST)","MEDIUM"]

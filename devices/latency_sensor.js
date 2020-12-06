@@ -16,12 +16,34 @@ var ip = process.argv[2],
   longitude = (Math.round(getRandomArbitrary(-180, 180) * 10) / 100).toString(),
   mode;
 
+const GenerationMode = {
+  HIGH: "high",
+  MEDIUM: "medium",
+  LOW: "low"
+}
+
+const GenerationModePeriod = {
+  HIGH: 1000,
+  MEDIUM: 3000,
+  LOW: 7000
+}
+
+// Get generation mode type if defined
+var dataGenerationMode = GenerationMode.LOW;
+if (process.argv.length > 3) {
+  let m = process.argv[3].toLowerCase();
+  if (m in GenerationMode) {
+    dataGenerationMode = m;
+  }
+}
+
 // Command line arguments
 process.argv.forEach(function(val) {
   // Real Weather data
   if (val === '-t') {
     mode = val;
   }
+
   // Bootstrap
   if (val === '-b') {
     var http = require('http');
@@ -508,17 +530,27 @@ if (bs === false) {
   });
 }
 
-// Start a periodic update on the
-let i = 0
-let periodMilli = 2000
+// Start a periodic update
+let periodMilli = GenerationModePeriod.LOW;
+switch (dataGenerationMode) {
+  case GenerationMode.HIGH:
+    periodMilli = GenerationModePeriod.HIGH;
+  case GenerationMode.MEDIUM:
+    periodMilli = GenerationModePeriod.MEDIUM;
+  case GenerationMode.LOW:
+  default:
+    periodMilli = GenerationModePeriod.LOW;
+}
+
+let value = 0
 console.log('Starting periodic update every ' + periodMilli + ' milliseconds');
 let timerId = setInterval(() => {
   console.log('Timer fired: writing new value');
-  so.write(3303, 0, 5700, ++i, function(err, data) {
+  so.write(3303, 0, 5700, ++value, function(err, data) {
     if (!err) {
       console.log(data);
     } else {
-      consol.log(err)
+      console.log(err);
     }
   });
-}, 2000);
+}, periodMilli);
