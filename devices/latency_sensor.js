@@ -6,7 +6,6 @@ var fs = require('fs');
 
 var so = new SmartObject;
 var ID = shortid.generate();
-var cnode = new CoapNode('LatencySensor' + '_' + ID, so);
 
 // Config parameters
 var ip = process.argv[2],
@@ -23,19 +22,22 @@ const GenerationMode = {
 }
 
 const GenerationModePeriod = {
-  HIGH: 1000,
-  MEDIUM: 3000,
-  LOW: 7000
+  HIGH: 100,
+  MEDIUM: 700,
+  LOW: 2000
 }
 
 // Get generation mode type if defined
 var dataGenerationMode = GenerationMode.LOW;
 if (process.argv.length > 3) {
-  let m = process.argv[3].toLowerCase();
+  let m = process.argv[3].toUpperCase();
   if (m in GenerationMode) {
     dataGenerationMode = m;
   }
 }
+
+
+var cnode = new CoapNode('LatencySensor-' + dataGenerationMode + '_' + ID, so);
 
 // Command line arguments
 process.argv.forEach(function(val) {
@@ -532,11 +534,13 @@ if (bs === false) {
 
 // Start a periodic update
 let periodMilli = GenerationModePeriod.LOW;
-switch (dataGenerationMode) {
+switch (dataGenerationMode.toLowerCase()) {
   case GenerationMode.HIGH:
     periodMilli = GenerationModePeriod.HIGH;
+    break;
   case GenerationMode.MEDIUM:
     periodMilli = GenerationModePeriod.MEDIUM;
+    break;
   case GenerationMode.LOW:
   default:
     periodMilli = GenerationModePeriod.LOW;
