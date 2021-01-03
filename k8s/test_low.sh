@@ -59,21 +59,22 @@ function configure(){
   kubectl apply -f "$ELIOT_K8S_HOME/eliot/server-service.yml"
 
   log "Waiting for the system to stabilize"
-  DEFAULT_IDLE_PODS=$((DEFAULT_IDLE_PODS + $DEFAULT_ELIOT_PODS))
+  DEFAULT_IDLE_PODS=$(kubectl get pods -A -o json | jq '.items | length')
   wait_system_idle $DEFAULT_IDLE_PODS
   log "All pods have been deployed successfully, waiting for the stabilization period"
+  kubectl apply -f "$ELIOT_K8S_HOME/eliot/low.yaml"
+  DEFAULT_IDLE_PODS=$((DEFAULT_IDLE_PODS + 200))
+  wait_system_idle $DEFAULT_IDLE_PODS
+
   sleep $STABILIZATION_PERIOD_SECONDS
   log "Starting observe"
   python "$ELIOT_K8S_HOME/server_api_call.py"
-  wait_system_idle $DEFAULT_IDLE_PODS
 }
 
 function main(){
   cd $ELIOT_K8S_HOME
   log "Configuring test"
   configure
-  log "Starting tests"
-  kubectl apply -f "$ELIOT_K8S_HOME/eliot/low.yaml"
   log "Tests completed"
   log "You should delete the cluster manually using kind delete cluster"
 }
