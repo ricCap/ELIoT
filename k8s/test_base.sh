@@ -11,8 +11,6 @@ readonly DEFAULT_ELIOT_PODS=2
 
 export TEST_COUNTER=0
 export DEFAULT_IDLE_PODS=0
-export DEVICES_TEST_YAML="$ELIOT_K8S_HOME/eliot/low.yaml"
-export ELIOT_DEVICES=200
 
 function log(){
   local message=$1
