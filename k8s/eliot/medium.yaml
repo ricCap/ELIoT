@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: eliot-latency-sensor-medium
+  namespace: eliot
+spec:
+  replicas: 1000
+  selector:
+    matchLabels:
+      app: eliot-latency-sensor-medium
+  template:
+    metadata:
+      name: eliot-latency-sensor-medium
+      labels:
+        app: eliot-latency-sensor-medium
+    spec:
+      containers:
+      - name: eliot-latency-sensor-medium
+        image: riccap/eliot:slim
+        imagePullPolicy: Always
+        args: ["latency_sensor.js","$(ELIOT_SERVER_SERVICE_HOST)","MEDIUM"]
