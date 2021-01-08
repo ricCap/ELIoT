@@ -4,7 +4,7 @@ metadata:
   name: eliot-latency-sensor-medium
   namespace: eliot
 spec:
-  replicas: 1000
+  replicas: 500
   selector:
     matchLabels:
       app: eliot-latency-sensor-medium
