@@ -12,6 +12,7 @@ readonly DEFAULT_ELIOT_PODS=2
 export TEST_COUNTER=0
 export DEFAULT_IDLE_PODS=0
 export DEVICES_TEST_YAML="$ELIOT_K8S_HOME/eliot/low.yaml"
+export ELIOT_DEVICES=200
 
 function log(){
   local message=$1
@@ -64,7 +65,7 @@ function configure(){
   wait_system_idle $DEFAULT_IDLE_PODS
   log "All pods have been deployed successfully, waiting for the stabilization period"
   kubectl apply -f "$ELIOT_K8S_HOME/eliot/low.yaml"
-  DEFAULT_IDLE_PODS=$((DEFAULT_IDLE_PODS + 200))
+  DEFAULT_IDLE_PODS=$((DEFAULT_IDLE_PODS + ELIOT_DEVICES))
   wait_system_idle $DEFAULT_IDLE_PODS
 
   sleep $STABILIZATION_PERIOD_SECONDS
