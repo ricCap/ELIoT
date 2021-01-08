@@ -62,7 +62,7 @@ function configure(){
   DEFAULT_IDLE_PODS=$(kubectl get pods -A -o json | jq '.items | length')
   wait_system_idle $DEFAULT_IDLE_PODS
   log "All pods have been deployed successfully, waiting for the stabilization period"
-  kubectl apply -f "$ELIOT_K8S_HOME/eliot/low.yaml"
+  kubectl apply -f "$DEVICES_TEST_YAML"
   DEFAULT_IDLE_PODS=$((DEFAULT_IDLE_PODS + ELIOT_DEVICES))
   wait_system_idle $DEFAULT_IDLE_PODS
 
