@@ -68,7 +68,7 @@ function configure(){
 
   sleep $STABILIZATION_PERIOD_SECONDS
   log "Starting observe"
-  python "$ELIOT_K8S_HOME/server_api_call.py"
+  python3 "$ELIOT_K8S_HOME/server_api_call.py"
 }
 
 function run(){

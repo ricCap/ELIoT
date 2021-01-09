@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: eliot-latency-sensor-high
+  namespace: eliot
+spec:
+  replicas: 50
+  selector:
+    matchLabels:
+      app: eliot-latency-sensor-high
+  template:
+    metadata:
+      name: eliot-latency-sensor-high
+      labels:
+        app: eliot-latency-sensor-high
+    spec:
+      containers:
+      - name: eliot-latency-sensor-high
+        image: riccap/eliot:slim
+        imagePullPolicy: Always
+        args: ["latency_sensor.js","$(ELIOT_SERVER_SERVICE_HOST)","HIGH"]
