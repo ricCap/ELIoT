@@ -65,8 +65,10 @@ function configure(){
   kubectl apply -f "$DEVICES_TEST_YAML"
   DEFAULT_IDLE_PODS=$((DEFAULT_IDLE_PODS + ELIOT_DEVICES))
   wait_system_idle $DEFAULT_IDLE_PODS
-
   sleep $STABILIZATION_PERIOD_SECONDS
+}
+
+function observe(){
   log "Starting observe"
   python3 "$ELIOT_K8S_HOME/server_api_call.py"
 }
@@ -75,6 +77,7 @@ function run(){
   cd $ELIOT_K8S_HOME
   log "Configuring test"
   configure
+  observe
   log "Tests completed"
   log "You should delete the cluster manually using kind delete cluster"
 }
