@@ -17,7 +17,7 @@ spec:
       nodeName: "kind-control-plane"
       containers:
       - name: eliot-bootstrap-server
-        image: corfr/leshan
+        image: riccap/leshan:latest
         args: ["bootstrap"]
         ports:
         - containerPort: 8080

@@ -17,7 +17,7 @@ spec:
       nodeName: "kind-control-plane"
       containers:
       - name: eliot-server
-        image: corfr/leshan
+        image: riccap/leshan:latest
         ports:
         - containerPort: 8080
         - protocol: UDP
